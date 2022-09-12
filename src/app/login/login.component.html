@@ -1,0 +1,16 @@
+<p>Login</p>
+<form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+    <div class="main">
+        <div>
+            <input name="email" ngModel placeholder="E-mail" id="email" type="email" class="input-field" required/>
+        </div>
+        <div>
+            <input name="password" ngModel placeholder="Senha" id="password" type="password" class="input-field" required/>
+        </div>
+        <button>Login</button>
+    </div>
+</form>
+<a class="button"
+    routerLink="/cadastro">
+Cadastrar-se
+</a>

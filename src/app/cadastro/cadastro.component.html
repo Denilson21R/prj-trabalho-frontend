@@ -1,0 +1,32 @@
+<form #cadastrarForm="ngForm" (ngSubmit)="cadastrar(cadastrarForm)">
+    <div class="main">
+        <div>
+            <label for="name">Nome</label>
+            <input name="name" ngModel placeholder="Nome" id="name" type="text" class="input-field" required/>
+        </div>
+        <div>
+            <label for="phone">Telefone</label>
+            <input name="phone" ngModel placeholder="Telefone" id="phone" type="text" class="input-field" required/>
+        </div>
+        <div>
+            <label for="name">E-mail</label>
+            <input name="email" ngModel placeholder="E-mail" id="email" type="email" class="input-field" required/>
+        </div>
+        <div>
+            <label for="name">Senha</label>
+            <input name="password" ngModel placeholder="Senha" id="password" type="password" class="input-field" required/>
+        </div>
+        <div>
+            <label for="name">Tipo</label>
+            <input type="radio" ngModel name="type" [value]="0" required>
+            Usuário
+            <input type="radio" ngModel name="type" [value]="1" required>
+            Cliente
+        </div>
+        <button>Cadastrar-se</button>
+    </div>
+</form>
+<a class="button"
+    routerLink="/login">
+Fazer Login
+</a>
