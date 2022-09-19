@@ -24,13 +24,8 @@ export class LoginComponent implements OnInit {
     if(form.valid){
       this.web.signInUser(form.value).subscribe(res => {
         this.saveUserDataInSession(res);
-      })
-
-      if(sessionStorage.getItem('user.id') != null){
         this.router.navigate(['home'])
-      }else{
-        //TODO: show error message to user
-      }
+      })
     }else{
       //TODO: show error message to user
     }

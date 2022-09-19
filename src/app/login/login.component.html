@@ -1,16 +1,26 @@
-<p>Login</p>
-<form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
-    <div class="main">
-        <div>
-            <input name="email" ngModel placeholder="E-mail" id="email" type="email" class="input-field" required/>
+<main id="main">
+  <div class="container">
+    <header class="section-header">
+      <h3>Login</h3>
+    </header>
+
+    <form class="form-card" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+      <div class="row justify-content-between text-left">
+        <div class="form-group  flex-column d-flex">
+          <input name="email" ngModel placeholder="E-mail" id="email" type="email" class="input-field" required/>
         </div>
-        <div>
-            <input name="password" ngModel placeholder="Senha" id="password" type="password" class="input-field" required/>
+      </div>
+      <div class="row justify-content-between text-left">
+        <div class="form-group  flex-column d-flex">
+          <input name="password" ngModel placeholder="Senha" id="password" type="password" class="input-field" required/>
         </div>
-        <button>Login</button>
-    </div>
-</form>
-<a class="button"
-    routerLink="/cadastro">
-Cadastrar-se
-</a>
+      </div>
+      <div class="row justify-content-end">
+        <div class="form-group">
+          <button type="submit" class="btn btn-block btn-dark">Login</button>
+          <button type="button" routerLink="/cadastro" class="btn btn-block btn-secondary">Cadastrar-se</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>
