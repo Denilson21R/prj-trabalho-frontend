@@ -1,0 +1,40 @@
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+  <!-- Navbar Brand-->
+  <a class="navbar-brand ps-3" href="#">TRABALHO PRJ</a>
+  <!-- Sidebar Toggle-->
+  <!-- Navbar Search-->
+  <!-- Navbar-->
+  <ul class="navbar-nav ms-auto mr-5">
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        {{userName}}
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+        <li class="dropdown-item">Meu Perfil</li>
+        <li><hr class="dropdown-divider"/></li>
+        <li class="dropdown-item" (click)="sair()">Sair</li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+<div id="layoutSidenav">
+  <div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+      <div class="sb-sidenav-menu">
+        <div class="nav">
+          <div class="sb-sidenav-menu-heading">Menu</div>
+          <a class="nav-link" href="#">
+            <a class="nav-link" href="#">
+              Agenda
+            </a>
+          </a>
+          <a class="nav-link" href="#">
+            <a class="nav-link" href="#">
+              Animais
+            </a>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
