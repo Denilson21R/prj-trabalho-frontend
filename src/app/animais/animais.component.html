@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+</head>
+<body class="sb-nav-fixed">
+<app-menu></app-menu>
+<div id="layoutSidenav_content">
+  <main>
+    <div class="container-fluid px-4">
+      <h1 class="mt-4">Animais</h1>
+    </div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <td>Nome</td>
+          <td>Espécie</td>
+          <td>Descrição</td>
+          <td>Ações</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let animal of animais">
+          <td>{{animal.name}}</td>
+          <td>{{animal.specie}}</td>
+          <td>{{animal.description}}</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+</div>
+</body>
+</html>

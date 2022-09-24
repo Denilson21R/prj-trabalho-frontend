@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from './model/User';
+import {Animal} from "./model/Animal";
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,9 @@ export class WebService {
     userAuthenticate = userAuthenticate.set("email", String(user.email));
     userAuthenticate = userAuthenticate.set("password", String(user.password));
     return this.http.post(this.baseURL + "/user/authenticate", userAuthenticate, {observe: "response"});
+  }
+
+  getUserAnimals(id_user: Number){
+    return this.http.get<Animal[]>(this.baseURL + "/user/" + String(id_user) + "/animals")
   }
 }

@@ -7,19 +7,13 @@ import {Router} from "@angular/router";
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-
-  userName!: String
+  userType!: String
 
   constructor(private route: Router) { }
 
   ngOnInit(): void {
-    if(sessionStorage.getItem('user.name') != undefined){
-      this.userName = sessionStorage.getItem('user.name') ?? ""
+    if(sessionStorage.getItem('user.type') != undefined){
+      this.userType = sessionStorage.getItem('user.type')!
     }
-  }
-
-  sair() {
-    sessionStorage.clear()
-    this.route.navigate(["login"])
   }
 }
