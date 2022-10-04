@@ -7,18 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  
+
   user: any;
-  
+
   constructor() { }
-  
+
   ngOnInit(): void {
     if(sessionStorage.getItem('user.id') != null){
       this.user = {
         'id': sessionStorage.getItem('user.id'),
         'name': sessionStorage.getItem('user.name'),
         'email': sessionStorage.getItem('user.email'),
-        'type': sessionStorage.getItem('user.type')
+        'type': sessionStorage.getItem('user.type'),
+        'phone': sessionStorage.getItem('user.phone'),
+        'pathImage': sessionStorage.getItem('user.pathImage')
       }
     }
   }

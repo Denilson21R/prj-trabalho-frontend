@@ -33,4 +33,12 @@ export class WebService {
   getUserAnimals(id_user: Number){
     return this.http.get<Animal[]>(this.baseURL + "/user/" + String(id_user) + "/animals")
   }
+
+  updateUser(user: User) {
+    let userAuthenticate = new HttpParams();
+    userAuthenticate = userAuthenticate.set("name", String(user.name));
+    userAuthenticate = userAuthenticate.set("email", String(user.email));
+    userAuthenticate = userAuthenticate.set("phone", String(user.phone));
+    return this.http.put(this.baseURL + "/user/" + user.id!, userAuthenticate, {observe: "response"})
+  }
 }

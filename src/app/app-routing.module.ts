@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {AgendaComponent} from "./agenda/agenda.component";
 import {AnimaisComponent} from "./animais/animais.component";
 import {PerfilComponent} from "./perfil/perfil.component";
+import {ServicoComponent} from "./servico/servico.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'agenda', component: AgendaComponent },
   { path: 'animais', component: AnimaisComponent },
   { path: 'perfil', component: PerfilComponent },
+  { path: 'servicos', component: ServicoComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 

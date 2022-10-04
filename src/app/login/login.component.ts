@@ -31,11 +31,12 @@ export class LoginComponent implements OnInit {
     }
   }
 
-
   private saveUserDataInSession(res: any) {
     sessionStorage.setItem('user.id', res.body.id);
     sessionStorage.setItem('user.name', res.body.name);
     sessionStorage.setItem('user.email', res.body.email);
     sessionStorage.setItem('user.type', res.body.type);
+    sessionStorage.setItem('user.phone', res.body.phone);
+    sessionStorage.setItem('user.pathImage', res.body.pathImage);
   }
 }

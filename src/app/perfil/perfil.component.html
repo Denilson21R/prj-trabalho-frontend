@@ -10,6 +10,37 @@
       <main>
         <div class="container-fluid px-4">
           <h1 class="mt-4">Perfil</h1>
+          <form class="form-card" #perfilForm="ngForm" (ngSubmit)="updatePerfil()" method="POST" enctype="multipart/form-data" id="form-perfil">
+            <div class="row justify-content-between text-left">
+              <div class="form-group  flex-column d-flex">
+                <img src="{{user.pathImage}}" alt="Foto de Perfil" width="120" height="120" id="user-image" accept="image/png, image/gif, image/jpeg" (click)="file.click()">
+                <input type="file" name="image" class="form-control" id="input-user-image" #file (change)="processFile($event)">
+              </div>
+              <div class="row justify-content-between text-left">
+                <div class="form-group  flex-column d-flex">
+                  <label for="name">Nome</label>
+                  <input name="name" [(ngModel)]="user.name" placeholder="Nome" id="name" type="text" class="form-control" required/>
+                </div>
+              </div>
+              <div class="row justify-content-between text-left">
+                <div class="form-group  flex-column d-flex">
+                  <label for="name">E-mail</label>
+                  <input name="email" [(ngModel)]="user.email" placeholder="E-mail" id="email" type="text" class="form-control" required/>
+                </div>
+              </div>
+              <div class="row justify-content-between text-left">
+                <div class="form-group  flex-column d-flex">
+                  <label for="name">Número</label>
+                  <input name="number" [(ngModel)]="user.phone" placeholder="Número" id="number" type="text" class="form-control" required/>
+                </div>
+              </div>
+              <div class="row salvar-btn">
+                <div class="form-group">
+                  <button type="submit" class="btn btn-block btn-dark">Salvar</button>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
       </main>
     </div>

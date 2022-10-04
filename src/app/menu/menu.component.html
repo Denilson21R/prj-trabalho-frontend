@@ -5,6 +5,9 @@
       <div class="sb-sidenav-menu">
         <div class="nav">
           <div class="sb-sidenav-menu-heading">Menu</div>
+          <a class="nav-link" [routerLink]="['/home']">
+            Dashboard
+          </a>
           <a class="nav-link" [routerLink]="['/agenda']">
             Agenda
           </a>
@@ -12,9 +15,6 @@
             Animais
           </a>
           <ng-template [ngIf]="userType == 'EMPLOYEE'">
-            <a class="nav-link" [routerLink]="['/clientes']"><!-- só o usuário tem acesso -->
-              Clientes
-            </a>
             <a class="nav-link" [routerLink]="['/servicos']"><!-- só o usuário tem acesso -->
               Serviços
             </a>

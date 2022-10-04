@@ -13,6 +13,7 @@ import { AgendaComponent } from './agenda/agenda.component';
 import { AnimaisComponent } from './animais/animais.component';
 import { HeaderComponent } from './header/header.component';
 import { PerfilComponent } from './perfil/perfil.component';
+import { ServicoComponent } from './servico/servico.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { PerfilComponent } from './perfil/perfil.component';
     AnimaisComponent,
     HeaderComponent,
     PerfilComponent,
+    ServicoComponent,
   ],
   imports: [
     BrowserModule,
