@@ -9,26 +9,20 @@
 <div id="layoutSidenav_content">
   <main>
     <div class="container-fluid px-4">
-      <h1 class="mt-4">Agenda</h1>
+      <h1 class="mt-4">Serviços</h1>
     </div>
     <table class="table table-hover">
       <thead>
       <tr>
-        <td>Data</td>
-        <td>Animal</td>
+        <td>Descrição</td>
         <td>Valor</td>
-        <td>Pago</td>
-        <td>Status</td>
         <td>Ações</td>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let schedule of schedules">
-        <td>{{schedule.date}}</td>
-        <td>{{schedule.animal.name}}</td>
-        <td>{{schedule.amount.toString()}}</td>
-        <td>{{schedule.paid}}</td>
-        <td>{{schedule.status}}</td>
+      <tr *ngFor="let service of services">
+        <td>{{service.description}}</td>
+        <td>{{service.value}}</td>
         <td></td>
       </tr>
       </tbody>

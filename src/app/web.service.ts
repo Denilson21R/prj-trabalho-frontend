@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from './model/User';
 import {Animal} from "./model/Animal";
+import {Permission} from "./model/Permission";
+import {Schedule} from "./model/Schedule";
+import {Service} from "./model/Service";
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +43,21 @@ export class WebService {
     userAuthenticate = userAuthenticate.set("email", String(user.email));
     userAuthenticate = userAuthenticate.set("phone", String(user.phone));
     return this.http.put(this.baseURL + "/user/" + user.id!, userAuthenticate, {observe: "response"})
+  }
+
+  getUserPermissions(id_user: Number){
+    return this.http.get<Permission>(this.baseURL + "/permission/" + String(id_user), {observe: "response"})
+  }
+
+  getSchedulesByCompany(id_company: Number){
+    return this.http.get<Schedule[]>(this.baseURL + "/company/" + String(id_company) + "/schedules", {observe: "response"})
+  }
+
+  getSchedulesByClientAnimals(id_client: Number){
+    return this.http.get<Schedule[]>(this.baseURL + "/schedules/client/" + String(id_client), {observe: "response"})
+  }
+
+  getServicesByCompany(id_company: Number){
+    return this.http.get<Service[]>(this.baseURL + "/company/" + id_company + "/services", {observe: "response"})
   }
 }

@@ -13,7 +13,7 @@ import { AgendaComponent } from './agenda/agenda.component';
 import { AnimaisComponent } from './animais/animais.component';
 import { HeaderComponent } from './header/header.component';
 import { PerfilComponent } from './perfil/perfil.component';
-import { ServicoComponent } from './servico/servico.component';
+import { ServicoComponent } from './servicos/servico.component';
 
 @NgModule({
   declarations: [

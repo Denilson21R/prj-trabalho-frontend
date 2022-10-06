@@ -27,6 +27,7 @@ export class PerfilComponent implements OnInit {
     this.web.updateUser(this.user).subscribe((res) => {
       if(res.ok){
         //TODO: show success to user
+        //TODO: update session
       }else{
         //TODO: show error to user
       }

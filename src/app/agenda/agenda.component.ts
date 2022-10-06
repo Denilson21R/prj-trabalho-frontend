@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {WebService} from "../web.service";
+import {User} from "../model/User";
+import {Schedule} from "../model/Schedule";
+import {Permission} from "../model/Permission";
 
 @Component({
   selector: 'app-agenda',
@@ -7,12 +11,41 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AgendaComponent implements OnInit {
 
-  constructor() { }
+  user: User = new User()
+  schedules?: Schedule[]
+  permission!: Permission
+
+  constructor(private web: WebService) { }
 
   ngOnInit(): void {
-    //get company permissions
-    //if dont have company show to crate or join to one
-    //if have company show schedules
+    this.user.id = Number(sessionStorage.getItem('user.id')!);
+    this.user.type = sessionStorage.getItem('user.type')!;
+
+    if(this.user.type == "EMPLOYEE"){
+      this.fillSchedulesForEmployee();
+    }else if(this.user.type == "CLIENT"){
+      this.fillSchedulesForClient();
+    }
   }
 
+  private fillSchedulesForClient() {
+    this.web.getSchedulesByClientAnimals(this.user.id!).subscribe((res) => {
+      if (res.ok && res.body != null) {
+        this.schedules = res.body
+      }
+    })
+  }
+
+  private fillSchedulesForEmployee() {
+    this.web.getUserPermissions(this.user.id!).subscribe((res) => {
+      if (res.ok && res.body != null) {
+        this.permission = res.body
+        this.web.getSchedulesByCompany(res.body.company.id!).subscribe((result) => {
+          if (result.ok && result.body != null) {
+            this.schedules = result.body
+          }
+        })
+      }
+    })
+  }
 }

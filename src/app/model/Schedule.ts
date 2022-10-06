@@ -1,0 +1,17 @@
+import {User} from "./User";
+import {Service} from "./Service";
+import {Animal} from "./Animal";
+import {Company} from "./Company";
+
+export class Schedule{
+  id?: Number
+  date!: Date
+  employee_execute?: User
+  employee_schedule!: User
+  services!: Service[]
+  animal!: Animal
+  status!: String
+  paid!: boolean
+  amount!: Number
+  company!: Company
+}

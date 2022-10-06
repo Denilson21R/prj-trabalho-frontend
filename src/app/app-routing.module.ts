@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {AgendaComponent} from "./agenda/agenda.component";
 import {AnimaisComponent} from "./animais/animais.component";
 import {PerfilComponent} from "./perfil/perfil.component";
-import {ServicoComponent} from "./servico/servico.component";
+import {ServicoComponent} from "./servicos/servico.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

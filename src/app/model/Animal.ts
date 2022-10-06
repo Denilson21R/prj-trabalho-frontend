@@ -1,9 +1,9 @@
 import {User} from "./User";
 
-export interface Animal {
+export class Animal {
   id?: Number
-  owner: User
-  name: String
-  specie: String
-  description: String
+  owner!: User
+  name!: String
+  specie!: String
+  description!: String
 }
