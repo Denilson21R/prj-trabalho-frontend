@@ -11,7 +11,7 @@
     <div class="container-fluid px-4">
       <h1 class="mt-4">Agenda</h1>
     </div>
-    <table class="table table-hover">
+    <table class="table table-hover" *ngIf="schedules.length > 0">
       <thead>
       <tr>
         <td>Data</td>
@@ -33,6 +33,9 @@
       </tr>
       </tbody>
     </table>
+    <div class="alert alert-danger col-md-6" role="alert" *ngIf="user.type == 'EMPLOYEE' && permission == null">
+      Você ainda não está em uma empresa, crie uma ou entre em uma!
+    </div>
   </main>
 </div>
 </body>

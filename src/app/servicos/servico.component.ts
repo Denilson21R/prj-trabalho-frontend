@@ -4,6 +4,7 @@ import {WebService} from "../web.service";
 import {User} from "../model/User";
 import {Schedule} from "../model/Schedule";
 import {Permission} from "../model/Permission";
+import {HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-servicos',
@@ -22,18 +23,18 @@ export class ServicoComponent implements OnInit {
     this.user.id = Number(sessionStorage.getItem('user.id')!);
     this.web.getUserPermissions(this.user.id).subscribe((res) => {
       if(res.ok && res.body != null){
-        this.permission = res.body
-        this.web.getServicesByCompany(this.permission.company.id!).subscribe((result)=>{
-          if(result.ok){
-            this.services = result.body!
-            this.services.forEach((service) => {
-              console.log(service)
-            })
-          }
-        })
+        this.fillServicesForUser(res);
       }
     })
 
   }
 
+  private fillServicesForUser(res: HttpResponse<Permission>) {
+    this.permission = res.body!
+    this.web.getServicesByCompany(this.permission!.company.id!).subscribe((result) => {
+      if (result.ok) {
+        this.services = result.body!
+      }
+    })
+  }
 }

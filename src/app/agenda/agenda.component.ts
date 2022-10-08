@@ -12,7 +12,7 @@ import {Permission} from "../model/Permission";
 export class AgendaComponent implements OnInit {
 
   user: User = new User()
-  schedules?: Schedule[]
+  schedules!: Schedule[]
   permission!: Permission
 
   constructor(private web: WebService) { }
@@ -34,6 +34,7 @@ export class AgendaComponent implements OnInit {
         this.schedules = res.body
       }
     })
+    this.schedules = []
   }
 
   private fillSchedulesForEmployee() {
@@ -47,5 +48,6 @@ export class AgendaComponent implements OnInit {
         })
       }
     })
+    this.schedules = []
   }
 }

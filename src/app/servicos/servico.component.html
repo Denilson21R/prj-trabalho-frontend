@@ -11,7 +11,7 @@
     <div class="container-fluid px-4">
       <h1 class="mt-4">Serviços</h1>
     </div>
-    <table class="table table-hover">
+    <table class="table table-hover" *ngIf="permission != null">
       <thead>
       <tr>
         <td>Descrição</td>
@@ -27,6 +27,9 @@
       </tr>
       </tbody>
     </table>
+    <div class="alert alert-danger col-md-6" role="alert" *ngIf="permission == null">
+      Você ainda não está em uma empresa, crie uma ou entre em uma!
+    </div>
   </main>
 </div>
 </body>
