@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+</head>
+<body class="sb-nav-fixed">
+<app-menu></app-menu>
+<div id="layoutSidenav_content">
+  <main>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">{{permission == null ? "" : permission.company.company_name}}</h1>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="data-tab" data-bs-toggle="tab" data-bs-target="#data-tab-pane" type="button" role="tab" aria-controls="data-tab-pane" aria-selected="true">Dados</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="employees-tab" data-bs-toggle="tab" data-bs-target="#employees-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Funcionários</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="content">
+        <div class="tab-pane fade show active" id="data-tab-pane" role="tabpanel" aria-labelledby="data-tab">
+          <form class="mt-3" *ngIf="permission">
+            <div class="mb-3">
+              <label for="name" class="form-label">Nome</label>
+              <input type="text" [(ngModel)]="permission.company.company_name" name="name" class="form-control" id="name">
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">E-mail</label>
+              <input type="email" [(ngModel)]="permission.company.email" name="email" class="form-control" id="email">
+            </div>
+            <div class="mb-3">
+              <label for="cnpj" class="form-label">Cnpj</label>
+              <input type="text" [(ngModel)]="permission.company.cnpj" name="cnpj" class="form-control" id="cnpj">
+            </div>
+            <button type="submit" class="btn btn-primary">Atualizar</button>
+          </form>
+        </div>
+        <div class="tab-pane fade" id="employees-tab-pane" role="tabpanel" aria-labelledby="employees-tab">
+          Funcionários
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

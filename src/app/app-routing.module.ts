@@ -7,6 +7,7 @@ import {AgendaComponent} from "./agenda/agenda.component";
 import {AnimaisComponent} from "./animais/animais.component";
 import {PerfilComponent} from "./perfil/perfil.component";
 import {ServicoComponent} from "./servicos/servico.component";
+import {EmpresaComponent} from "./empresa/empresa.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'animais', component: AnimaisComponent },
   { path: 'perfil', component: PerfilComponent },
   { path: 'servicos', component: ServicoComponent },
+  { path: 'empresa', component: EmpresaComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 

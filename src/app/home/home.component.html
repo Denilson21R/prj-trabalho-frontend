@@ -8,10 +8,18 @@
   <app-menu></app-menu>
     <div id="layoutSidenav_content">
       <main>
-        <div class="container-fluid px-4">
-          <h1 class="mt-4">Dashboard</h1>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="container-fluid px-4">
+              <h1 class="mt-4">Dashboard</h1>
+            </div>
+          </div>
+          <div class="col-md-6" *ngIf="permission">
+            <div class="card" *ngIf="permission.company_owner && user.type == 'EMPLOYEE'" >
+              <app-card-empresa [company_name]="permission.company.company_name!"></app-card-empresa>
+            </div>
+          </div>
         </div>
-        {{user | json}}
       </main>
     </div>
   </body>

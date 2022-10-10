@@ -14,6 +14,8 @@ import { AnimaisComponent } from './animais/animais.component';
 import { HeaderComponent } from './header/header.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { ServicoComponent } from './servicos/servico.component';
+import { CardEmpresaComponent } from './card-empresa/card-empresa.component';
+import { EmpresaComponent } from './empresa/empresa.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { ServicoComponent } from './servicos/servico.component';
     HeaderComponent,
     PerfilComponent,
     ServicoComponent,
+    CardEmpresaComponent,
+    EmpresaComponent,
   ],
   imports: [
     BrowserModule,
