@@ -8,20 +8,27 @@
 <app-menu></app-menu>
 <div id="layoutSidenav_content">
   <main>
-    <div class="container-fluid px-4">
-      <h1 class="mt-4">Animais</h1>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="container-fluid px-4">
+          <h1 class="mt-4">Animais</h1>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-dark" id="btn-animal" data-bs-toggle="modal" data-bs-target="#modal-animal">Novo Animal</button>
+      </div>
     </div>
-    <table class="table table-hover">
+    <table class="table table-hover mt-3 ms-4 me-4" *ngIf="animals.length > 0">
       <thead>
         <tr>
-          <td>Nome</td>
-          <td>Espécie</td>
-          <td>Descrição</td>
-          <td>Ações</td>
+          <th>Nome</th>
+          <th>Espécie</th>
+          <th>Descrição</th>
+          <th>Ações</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let animal of animais">
+        <tr *ngFor="let animal of animals">
           <td>{{animal.name}}</td>
           <td>{{animal.specie}}</td>
           <td>{{animal.description}}</td>
@@ -29,7 +36,13 @@
         </tr>
       </tbody>
     </table>
+    <div class="row ms-4 mt-4">
+      <div class="alert alert-danger col-md-6" role="alert" *ngIf="animals.length == 0">
+        Nenhum animal encontrado!
+      </div>
+    </div>
   </main>
 </div>
+<app-modal-animal></app-modal-animal>
 </body>
 </html>

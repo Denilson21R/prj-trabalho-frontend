@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width">
+  <title>Empresa</title>
 </head>
 <body class="sb-nav-fixed">
 <app-menu></app-menu>
@@ -14,8 +15,11 @@
             <h1 class="mt-4">{{permission == null ? "" : permission.company.company_name}}</h1>
         </div>
       </div>
+      <div class="col-md-6">
+        <button class="btn btn-dark" id="btn-convidar-usuario" data-bs-toggle="modal" data-bs-target="#modal-convidar-usuario">Convidar Usuário</button>
+      </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid mt-3">
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
           <button class="nav-link active" id="data-tab" data-bs-toggle="tab" data-bs-target="#data-tab-pane" type="button" role="tab" aria-controls="data-tab-pane" aria-selected="true">Dados</button>
@@ -43,11 +47,29 @@
           </form>
         </div>
         <div class="tab-pane fade" id="employees-tab-pane" role="tabpanel" aria-labelledby="employees-tab">
-          Funcionários
+          <table class="table table-striped mt-3">
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Contato</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let employee of employees">
+                <td>{{employee.name}}</td>
+                <td>{{employee.email}}</td>
+                <td>{{employee.phone}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </main>
 </div>
+<ng-template [ngIf]="permission">
+  <app-modal-convidar-usuario [company]="permission.company.id!"></app-modal-convidar-usuario>
+</ng-template>
 </body>
 </html>

@@ -6,6 +6,8 @@ import {Animal} from "./model/Animal";
 import {Permission} from "./model/Permission";
 import {Schedule} from "./model/Schedule";
 import {Service} from "./model/Service";
+import {CompanyInvite} from "./model/CompanyInvite";
+import {Company} from "./model/Company";
 
 @Injectable({
   providedIn: 'root'
@@ -59,5 +61,16 @@ export class WebService {
 
   getServicesByCompany(id_company: Number){
     return this.http.get<Service[]>(this.baseURL + "/company/" + id_company + "/services", {observe: "response"})
+  }
+
+  getEmployeesByCompany(id_company: Number){
+    return this.http.get<User[]>(this.baseURL + "/company/" + id_company + "/users", {observe: "response"})
+  }
+
+  addInviteToUserByEmail(email: String, company: Number){
+    let userInvited = new HttpParams();
+    userInvited = userInvited.set("email", String(email));
+    userInvited = userInvited.set("company", String(company));
+    return this.http.post<CompanyInvite>(this.baseURL + "/invite", userInvited, {observe: "response"})
   }
 }

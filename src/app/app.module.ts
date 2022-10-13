@@ -16,6 +16,10 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { ServicoComponent } from './servicos/servico.component';
 import { CardEmpresaComponent } from './card-empresa/card-empresa.component';
 import { EmpresaComponent } from './empresa/empresa.component';
+import { ModalServicoComponent } from './modal-servico/modal-servico.component';
+import { ModalAgendamentoComponent } from './modal-agendamento/modal-agendamento.component';
+import { ModalAnimalComponent } from './modal-animal/modal-animal.component';
+import { ModalConvidarUsuarioComponent } from './modal-convidar-usuario/modal-convidar-usuario.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +35,10 @@ import { EmpresaComponent } from './empresa/empresa.component';
     ServicoComponent,
     CardEmpresaComponent,
     EmpresaComponent,
+    ModalServicoComponent,
+    ModalAgendamentoComponent,
+    ModalAnimalComponent,
+    ModalConvidarUsuarioComponent,
   ],
   imports: [
     BrowserModule,

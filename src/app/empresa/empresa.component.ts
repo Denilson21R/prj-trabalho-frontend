@@ -3,6 +3,7 @@ import {Permission} from "../model/Permission";
 import {WebService} from "../web.service";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
+import {User} from "../model/User";
 
 @Component({
   selector: 'app-empresa',
@@ -10,14 +11,24 @@ import {Observable} from "rxjs";
   styleUrls: ['./empresa.component.css']
 })
 export class EmpresaComponent implements OnInit {
+
   user: any;
   permission!: Permission
+  employees: User[] = []
 
   constructor(private web: WebService, private router: Router) { }
 
   ngOnInit(): void {
     this.fillUserBySession();
     this.fillUserPermissions();
+  }
+
+  private fillEmployeesByCompany() {
+    this.web.getEmployeesByCompany(this.permission.company.id!).subscribe((res) => {
+      if (res.ok && res.body != null && res.body.length > 0) {
+        this.employees = res.body
+      }
+    })
   }
 
   private fillUserBySession() {
@@ -34,6 +45,7 @@ export class EmpresaComponent implements OnInit {
       if (res.ok && res.body != null) {
         this.permission = res.body
         this.verifyUserCanSeeCompany();
+        this.fillEmployeesByCompany();
       }
     })
   }

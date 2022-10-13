@@ -9,14 +9,14 @@ import {WebService} from "../web.service";
 })
 export class AnimaisComponent implements OnInit {
 
-  animais!: Animal[];
+  animals: Animal[] = [];
 
   constructor(private web: WebService) { }
 
   ngOnInit(): void {
     this.web.getUserAnimals(Number(sessionStorage.getItem('user.id')))
       .subscribe((res) => {
-      this.animais = res
+      this.animals = res
     })
   }
 
