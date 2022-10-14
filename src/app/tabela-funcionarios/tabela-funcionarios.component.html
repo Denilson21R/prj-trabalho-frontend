@@ -1,0 +1,16 @@
+<table class="table table-striped mt-3">
+  <thead>
+  <tr>
+    <th scope="col">Nome</th>
+    <th scope="col">E-mail</th>
+    <th scope="col">Contato</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let employee of employees" (click)="seeUser(employee)" data-bs-toggle="modal" data-bs-target="#modal-permissoes-usuario">
+    <td>{{employee.name}}</td>
+    <td>{{employee.email}}</td>
+    <td>{{employee.phone}}</td>
+  </tr>
+  </tbody>
+</table>

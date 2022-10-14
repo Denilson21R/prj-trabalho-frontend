@@ -27,6 +27,9 @@
         <li class="nav-item" role="presentation">
           <button class="nav-link" id="employees-tab" data-bs-toggle="tab" data-bs-target="#employees-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Funcionários</button>
         </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="invites-tab" data-bs-toggle="tab" data-bs-target="#invites-tab-pane" type="button" role="tab" aria-controls="invites-tab-pane" aria-selected="false">Convites Pendentes</button>
+        </li>
       </ul>
       <div class="tab-content" id="content">
         <div class="tab-pane fade show active" id="data-tab-pane" role="tabpanel" aria-labelledby="data-tab">
@@ -47,22 +50,12 @@
           </form>
         </div>
         <div class="tab-pane fade" id="employees-tab-pane" role="tabpanel" aria-labelledby="employees-tab">
-          <table class="table table-striped mt-3">
-            <thead>
-              <tr>
-                <th scope="col">Nome</th>
-                <th scope="col">E-mail</th>
-                <th scope="col">Contato</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let employee of employees">
-                <td>{{employee.name}}</td>
-                <td>{{employee.email}}</td>
-                <td>{{employee.phone}}</td>
-              </tr>
-            </tbody>
-          </table>
+          <app-tabela-funcionarios [employees]="employees" (emitUserPermission)=seePermissionUser($event)></app-tabela-funcionarios>
+        </div>
+        <div class="tab-pane fade" id="invites-tab-pane" role="tabpanel" aria-labelledby="invites-tab">
+          <ng-template [ngIf]="permission">
+            <app-tabela-convites-empresa [company_id]="permission.company.id!"></app-tabela-convites-empresa>
+          </ng-template>
         </div>
       </div>
     </div>
@@ -73,3 +66,4 @@
 </ng-template>
 </body>
 </html>
+<app-modal-permissoes-usuario [user]="userSeePermission"></app-modal-permissoes-usuario>

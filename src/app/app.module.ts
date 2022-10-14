@@ -20,6 +20,10 @@ import { ModalServicoComponent } from './modal-servico/modal-servico.component';
 import { ModalAgendamentoComponent } from './modal-agendamento/modal-agendamento.component';
 import { ModalAnimalComponent } from './modal-animal/modal-animal.component';
 import { ModalConvidarUsuarioComponent } from './modal-convidar-usuario/modal-convidar-usuario.component';
+import { TabelaConvitesUsuarioComponent } from './tabela-convites-usuario/tabela-convites-usuario.component';
+import { TabelaConvitesEmpresaComponent } from './tabela-convites-empresa/tabela-convites-empresa.component';
+import { TabelaFuncionariosComponent } from './tabela-funcionarios/tabela-funcionarios.component';
+import { ModalPermissoesUsuarioComponent } from './modal-permissoes-usuario/modal-permissoes-usuario.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +43,10 @@ import { ModalConvidarUsuarioComponent } from './modal-convidar-usuario/modal-co
     ModalAgendamentoComponent,
     ModalAnimalComponent,
     ModalConvidarUsuarioComponent,
+    TabelaConvitesUsuarioComponent,
+    TabelaConvitesEmpresaComponent,
+    TabelaFuncionariosComponent,
+    ModalPermissoesUsuarioComponent,
   ],
   imports: [
     BrowserModule,

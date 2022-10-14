@@ -11,9 +11,14 @@
         {{userName}}
       </a>
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-        <li [routerLink]="['/perfil']" class="dropdown-item">Meu Perfil</li>
+        <li [routerLink]="['/perfil']" class="dropdown-item">
+          Perfil
+          <ng-template [ngIf]="invites">
+            <span class="badge rounded-circle text-bg-danger" *ngIf="invites.length > 0">{{invites.length}}</span>
+          </ng-template>
+        </li>
         <li><hr class="dropdown-divider"/></li>
-        <li class="dropdown-item" (click)="sair()">Sair</li>
+        <li class="dropdown-item" (click)="logout()">Sair</li>
       </ul>
     </li>
   </ul>

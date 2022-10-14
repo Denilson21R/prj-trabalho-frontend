@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Permission} from "../model/Permission";
 import {WebService} from "../web.service";
 import {Router} from "@angular/router";
@@ -15,6 +15,7 @@ export class EmpresaComponent implements OnInit {
   user: any;
   permission!: Permission
   employees: User[] = []
+  userSeePermission?: User
 
   constructor(private web: WebService, private router: Router) { }
 
@@ -53,6 +54,14 @@ export class EmpresaComponent implements OnInit {
   private verifyUserCanSeeCompany() {
     if (this.user.type != 'EMPLOYEE' || !this.permission.company_owner) {
       this.router.navigate(['/home'])
+    }
+  }
+
+  seePermissionUser(id_user: Number) {
+    if(id_user){
+      let newUser = new User()
+      newUser.id = id_user
+      this.userSeePermission = newUser
     }
   }
 }

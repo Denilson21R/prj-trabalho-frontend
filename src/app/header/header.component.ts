@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
+import {CompanyInvite} from "../model/CompanyInvite";
+import {WebService} from "../web.service";
 
 @Component({
   selector: 'app-header',
@@ -8,17 +10,29 @@ import {Router} from "@angular/router";
 })
 export class HeaderComponent implements OnInit {
 
+  userId!: Number
   userName!: String
+  userType!: String
+  invites: CompanyInvite[] = []
 
-  constructor(private route: Router) { }
+  constructor(private route: Router, private web: WebService) { }
 
   ngOnInit(): void {
-    if(sessionStorage.getItem('user.name') != undefined){
-      this.userName = sessionStorage.getItem('user.name')!
-    }
+    this.userId = Number(sessionStorage.getItem('user.id')!)
+    this.userName = sessionStorage.getItem('user.name')!
+    this.userType = sessionStorage.getItem('user.type')!
+    this.getOpeningInviterForUser()
   }
 
-  sair() {
+  private getOpeningInviterForUser() {
+    this.web.getOpeningInvitesForUser(this.userId).subscribe((res) => {
+      if (res.ok) {
+        this.invites = res.body!
+      }
+    })
+  }
+
+  logout() {
     sessionStorage.clear()
     this.route.navigate(["login"])
   }

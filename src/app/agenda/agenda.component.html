@@ -14,11 +14,12 @@
           <h1 class="mt-4">Agenda</h1>
         </div>
       </div>
-      <div class="col-md-6">
-        <button class="btn btn-dark" id="btn-agendamento" data-bs-toggle="modal" data-bs-target="#modal-agendamento">Novo Agendamento</button>
-      </div>
+      <ng-template [ngIf]="user.type == 'CLIENT'">
+        <div class="col-md-6">
+          <button class="btn btn-dark" id="btn-solicitar-agendamento" data-bs-toggle="modal" data-bs-target="#modal-agendamento">Solicitar Agendamento</button>
+        </div>
+      </ng-template>
     </div>
-
     <table class="table table-hover mt-3 ms-4 me-4" *ngIf="schedules.length > 0">
       <thead>
       <tr>

@@ -2,6 +2,7 @@ import { User } from './../model/User';
 import { Component, OnInit } from '@angular/core';
 import {Permission} from "../model/Permission";
 import {WebService} from "../web.service";
+import {CompanyInvite} from "../model/CompanyInvite";
 
 @Component({
   selector: 'app-home',
@@ -10,14 +11,14 @@ import {WebService} from "../web.service";
 })
 export class HomeComponent implements OnInit {
 
-  user: any;
+  user: any
   permission!: Permission
 
   constructor(private web: WebService) { }
 
   ngOnInit(): void {
-    this.fillUserBySession();
-    this.fillUserPermissions();
+    this.fillUserBySession()
+    this.fillUserPermissions()
   }
 
   private fillUserBySession() {

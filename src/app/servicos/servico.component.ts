@@ -13,7 +13,7 @@ import {HttpResponse} from "@angular/common/http";
 })
 export class ServicoComponent implements OnInit {
 
-  services!: Service[]
+  services: Service[] = []
   user: User = new User()
   permission?: Permission
 

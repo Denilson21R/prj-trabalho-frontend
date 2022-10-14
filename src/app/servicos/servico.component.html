@@ -18,22 +18,24 @@
         <button class="btn btn-dark" id="btn-servico" data-bs-toggle="modal" data-bs-target="#modal-servico">Novo Serviço</button>
       </div>
     </div>
-    <table class="table table-hover mt-3 ms-4 me-4" *ngIf="permission != null && services.length > 0">
-      <thead>
-      <tr>
-        <td>Descrição</td>
-        <td>Valor</td>
-        <td>Ações</td>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let service of services">
-        <td>{{service.description}}</td>
-        <td>{{service.value}}</td>
-        <td></td>
-      </tr>
-      </tbody>
-    </table>
+    <ng-template [ngIf]="services">
+      <table class="table table-hover mt-3 ms-4 me-4" *ngIf="permission != null && services.length > 0">
+        <thead>
+        <tr>
+          <td>Descrição</td>
+          <td>Valor</td>
+          <td>Ações</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let service of services">
+          <td>{{service.description}}</td>
+          <td>{{service.value}}</td>
+          <td></td>
+        </tr>
+        </tbody>
+      </table>
+    </ng-template>
     <div class="row ms-4 mt-4">
       <div class="alert alert-danger col-md-6" role="alert" *ngIf="permission != null && services.length == 0">
         Nenhum serviço encontrado!

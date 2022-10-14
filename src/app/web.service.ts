@@ -73,4 +73,35 @@ export class WebService {
     userInvited = userInvited.set("company", String(company));
     return this.http.post<CompanyInvite>(this.baseURL + "/invite", userInvited, {observe: "response"})
   }
+
+  getOpeningInvitesForUser(user_id: Number){
+    return this.http.get<CompanyInvite[]>(this.baseURL + "/invites/user/" + user_id, {observe: "response"})
+  }
+
+  updateCompanyInvite(status: Number, invite_id: Number){
+    let statusInvite = new HttpParams();
+    statusInvite = statusInvite.set("status", String(status));
+    return this.http.patch<CompanyInvite[]>(this.baseURL + "/invite/" + invite_id, statusInvite, {observe: "response"})
+  }
+
+  addPermission(permission: Permission) {
+    let newPermission = new HttpParams();
+    newPermission = newPermission.set("company", String(permission.company.id))
+    newPermission = newPermission.set("company_owner", String(permission.company_owner))
+    newPermission = newPermission.set("can_add_schedules", String(permission.can_add_schedules))
+    newPermission = newPermission.set("can_add_services", String(permission.can_add_services))
+    newPermission = newPermission.set("user", String(permission.user.id))
+    return this.http.post<Permission>(this.baseURL + "/permission", newPermission, {observe: "response"})
+  }
+
+  getOpeningInvitesForCompany(company_id: Number){
+    return this.http.get<CompanyInvite[]>(this.baseURL + "/invites/company/" + company_id, {observe: "response"})
+  }
+
+  updatePermission(permission: Permission) {
+    let permissionData = new HttpParams();
+    permissionData = permissionData.set("services", String(permission.can_add_services));
+    permissionData = permissionData.set("schedules", String(permission.can_add_schedules));
+    return this.http.patch<Permission>(this.baseURL + "/permission/" + permission.id, permissionData, {observe: "response"})
+  }
 }
