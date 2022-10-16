@@ -5,6 +5,6 @@ import {Company} from "./Company";
 export class Service{
   id?: Number
   description!: String
-  value!: Number
+  value!: number
   company!: Company
 }

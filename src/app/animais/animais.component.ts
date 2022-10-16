@@ -9,14 +9,17 @@ import {WebService} from "../web.service";
 })
 export class AnimaisComponent implements OnInit {
 
+  user_id!: Number
   animals: Animal[] = [];
 
   constructor(private web: WebService) { }
 
   ngOnInit(): void {
-    this.web.getUserAnimals(Number(sessionStorage.getItem('user.id')))
-      .subscribe((res) => {
-      this.animals = res
+    this.user_id = Number(sessionStorage.getItem('user.id'))
+    this.web.getUserAnimals(this.user_id).subscribe((res) => {
+      if(res.ok){
+        this.animals = res.body!
+      }
     })
   }
 

@@ -20,25 +20,28 @@
         </div>
       </ng-template>
     </div>
-    <table class="table table-hover mt-3 ms-4 me-4" *ngIf="schedules.length > 0">
+    <table class="table table-hover mt-3" *ngIf="schedules.length > 0">
       <thead>
       <tr>
-        <td>Data</td>
-        <td>Animal</td>
-        <td>Valor</td>
-        <td>Pago</td>
-        <td>Status</td>
-        <td>Ações</td>
+        <th>Data</th>
+        <th>Animal</th>
+        <th>Valor</th>
+        <th>Pago</th>
+        <th>Status</th>
+        <th></th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let schedule of schedules">
-        <td>{{schedule.date}}</td>
+        <td>{{schedule.date | date:'dd/MM/y hh:mm'}}</td>
         <td>{{schedule.animal.name}}</td>
-        <td>{{schedule.amount.toString()}}</td>
+        <td>R${{schedule.amount.toString()}}</td>
         <td>{{schedule.paid}}</td>
         <td>{{schedule.status}}</td>
-        <td></td>
+        <td class="text-end">
+          <button class="btn btn-primary me-2">Editar</button>
+          <button class="btn btn-danger">Apagar</button>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -52,6 +55,8 @@
     </div>
   </main>
 </div>
-<app-modal-agendamento></app-modal-agendamento>
+<ng-template [ngIf]="user">
+  <app-modal-agendamento [user]="user"></app-modal-agendamento>
+</ng-template>
 </body>
 </html>

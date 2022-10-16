@@ -18,13 +18,13 @@
         <button class="btn btn-dark" id="btn-animal" data-bs-toggle="modal" data-bs-target="#modal-animal">Novo Animal</button>
       </div>
     </div>
-    <table class="table table-hover mt-3 ms-4 me-4" *ngIf="animals.length > 0">
+    <table class="table table-hover mt-3" *ngIf="animals.length > 0">
       <thead>
         <tr>
           <th>Nome</th>
           <th>Espécie</th>
           <th>Descrição</th>
-          <th>Ações</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -32,7 +32,10 @@
           <td>{{animal.name}}</td>
           <td>{{animal.specie}}</td>
           <td>{{animal.description}}</td>
-          <td></td>
+          <td class="text-end">
+            <button class="btn btn-primary me-2">Editar</button>
+            <button class="btn btn-danger">Apagar</button>
+          </td>
         </tr>
       </tbody>
     </table>

@@ -8,6 +8,7 @@ import {Schedule} from "./model/Schedule";
 import {Service} from "./model/Service";
 import {CompanyInvite} from "./model/CompanyInvite";
 import {Company} from "./model/Company";
+import {ServiceRequest} from "./model/ServiceRequest";
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,7 @@ export class WebService {
   }
 
   getUserAnimals(id_user: Number){
-    return this.http.get<Animal[]>(this.baseURL + "/user/" + String(id_user) + "/animals")
+    return this.http.get<Animal[]>(this.baseURL + "/user/" + String(id_user) + "/animals", {observe: "response"})
   }
 
   updateUser(user: User) {
@@ -103,5 +104,24 @@ export class WebService {
     permissionData = permissionData.set("services", String(permission.can_add_services));
     permissionData = permissionData.set("schedules", String(permission.can_add_schedules));
     return this.http.patch<Permission>(this.baseURL + "/permission/" + permission.id, permissionData, {observe: "response"})
+  }
+
+  getAllCompanies() {
+    return this.http.get<Company[]>(this.baseURL + "/companies", {observe: "response"})
+  }
+
+  addScheduleRequest(animal_id: Number, company_id: Number, user_id: Number, date: Date){
+    let requestData = new HttpParams();
+    requestData = requestData.set("animal", String(animal_id));
+    requestData = requestData.set("company", String(company_id));
+    requestData = requestData.set("user", String(user_id));
+    requestData = requestData.set("date", String(date));
+    return this.http.post<ServiceRequest>(this.baseURL + "/service-request", requestData, {observe: "response"})
+  }
+
+  setServicesOfServiceRequest(services: String[], service_request_id: Number){
+    let serviceList = new HttpParams();
+    serviceList = serviceList.set("services", services.join(", "));
+    return this.http.patch<ServiceRequest>(this.baseURL + "/service-request/"+ String(service_request_id) +"/services", serviceList, {observe: "response"})
   }
 }

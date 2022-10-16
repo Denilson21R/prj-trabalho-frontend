@@ -19,19 +19,22 @@
       </div>
     </div>
     <ng-template [ngIf]="services">
-      <table class="table table-hover mt-3 ms-4 me-4" *ngIf="permission != null && services.length > 0">
+      <table class="table table-hover table-responsive mt-3" *ngIf="permission != null && services.length > 0">
         <thead>
         <tr>
-          <td>Descrição</td>
-          <td>Valor</td>
-          <td>Ações</td>
+          <th>Descrição</th>
+          <th>Valor</th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let service of services">
           <td>{{service.description}}</td>
           <td>{{service.value}}</td>
-          <td></td>
+          <td class="text-end">
+            <button class="btn btn-primary me-2">Editar</button>
+            <button class="btn btn-danger">Apagar</button>
+          </td>
         </tr>
         </tbody>
       </table>
