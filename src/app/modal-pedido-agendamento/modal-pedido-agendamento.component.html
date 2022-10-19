@@ -1,0 +1,41 @@
+<div class="modal" tabindex="-1" id="modal-pedido-agendamento">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pedido de Agendamento</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ng-template [ngIf]="requestSelected">
+          <ng-template [ngIf]="requestSelected.client">
+            <label for="client" class="form-label">Cliente</label>
+            <input type="text" name="client" class="form-control" id="client" [(ngModel)]="requestSelected.client.name" readonly>
+          </ng-template>
+          <ng-template [ngIf]="requestSelected.animal">
+            <label for="animal" class="form-label mt-3">Animal</label>
+            <input type="text" name="animal" class="form-control" id="animal" [(ngModel)]="requestSelected.animal.name" readonly>
+          </ng-template>
+          <ng-template [ngIf]="requestSelected.serviceDate">
+            <label for="date" class="form-label mt-3">Data</label>
+            <input type="datetime-local" name="date" class="form-control" id="date" [(ngModel)]="requestSelected.serviceDate" readonly>
+          </ng-template>
+          <ng-template [ngIf]="requestSelected.requested_services.length > 0">
+            <label class="form-label mt-3">Serviços</label>
+            <ul class="list-group">
+              <li class="list-group-item" *ngFor="let service of requestSelected.requested_services">
+                {{service.description}} - R${{service.value}}
+              </li>
+            </ul>
+          </ng-template>
+          <ng-template [ngIf]="totalValue != null">
+            <div class="mt-4 fw-bold">Valor total: {{totalValue}}</div>
+          </ng-template>
+        </ng-template>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="changeServiceRequest(1)">Aceitar</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="changeServiceRequest(2)">Recusar</button>
+      </div>
+    </div>
+  </div>
+</div>

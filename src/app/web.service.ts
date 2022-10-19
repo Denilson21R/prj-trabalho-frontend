@@ -124,4 +124,44 @@ export class WebService {
     serviceList = serviceList.set("services", services.join(", "));
     return this.http.patch<ServiceRequest>(this.baseURL + "/service-request/"+ String(service_request_id) +"/services", serviceList, {observe: "response"})
   }
+
+  getServiceRequestsByCompany(company_id: Number) {
+    return this.http.get<ServiceRequest[]>(this.baseURL + "/requests/company/" + String(company_id), {observe: "response"})
+  }
+
+  updateServiceRequest(serviceRequest: ServiceRequest){
+    this.changeStatusForBackend(serviceRequest);
+    let newRequest = new HttpParams();
+    newRequest = newRequest.set("animal", String(serviceRequest.animal.id));
+    newRequest = newRequest.set("status", String(serviceRequest.status));
+    newRequest = newRequest.set("date", String(serviceRequest.serviceDate));
+    return this.http.put<ServiceRequest>(this.baseURL + "/service-request/" + String(serviceRequest.id), newRequest, {observe: "response"})
+  }
+
+  addSchedule(schedule: Schedule){
+    let newSchedule = new HttpParams();
+    newSchedule = newSchedule.set("animal", String(schedule.animal.id));
+    newSchedule = newSchedule.set("date", String(schedule.date));
+    newSchedule = newSchedule.set("amount", String(schedule.amount));
+    newSchedule = newSchedule.set("company", String(schedule.company.id));
+    newSchedule = newSchedule.set("employee_schedule", String(schedule.employee_schedule.id));
+    newSchedule = newSchedule.set("services", String(this.convertArrayServicesToArrayOfStringId(schedule.services)));
+    return this.http.post<Schedule>(this.baseURL + "/schedule", newSchedule, {observe: "response"})
+  }
+
+  convertArrayServicesToArrayOfStringId(services: Service[]) {
+    let serviceArrayId: String[] = []
+    services.forEach((service)=>{
+      serviceArrayId.push(String(service.id))
+    })
+    return serviceArrayId.join(", ")
+  }
+
+  private changeStatusForBackend(serviceRequest: ServiceRequest) {
+    if (serviceRequest.status == "ACEITO") {
+      serviceRequest.status = "1"
+    } else {
+      serviceRequest.status = "2"
+    }
+  }
 }

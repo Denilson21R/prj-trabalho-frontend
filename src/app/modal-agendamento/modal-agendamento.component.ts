@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Company} from "../model/Company";
 import {WebService} from "../web.service";
 import {Animal} from "../model/Animal";
@@ -18,6 +18,7 @@ export class ModalAgendamentoComponent implements OnInit {
   @Input() user!: User
   companySelected!: Company
   animalSelected!: Animal
+  @ViewChild("btnCancelar") btnCancelar!: ElementRef<HTMLElement>
 
   companies?: Company[]
   animals?: Animal[]
@@ -81,10 +82,11 @@ export class ModalAgendamentoComponent implements OnInit {
   private fillServicesOfServiceRequest(finalServicesArray: String[], res: HttpResponse<ServiceRequest>) {
     this.web.setServicesOfServiceRequest(finalServicesArray, res.body?.id!).subscribe((response) => {
       if (res.ok) {
-        //TODO: close modal and show success
+        //TODO: show success
       } else {
         //TODO: show error
       }
+      this.btnCancelar.nativeElement.click()
     })
   }
 

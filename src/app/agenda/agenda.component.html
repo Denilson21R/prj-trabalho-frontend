@@ -36,7 +36,7 @@
         <td>{{schedule.date | date:'dd/MM/y hh:mm'}}</td>
         <td>{{schedule.animal.name}}</td>
         <td>R${{schedule.amount.toString()}}</td>
-        <td>{{schedule.paid}}</td>
+        <td>{{schedule.paid? "Sim" :"Não"}}</td>
         <td>{{schedule.status}}</td>
         <td class="text-end">
           <button class="btn btn-primary me-2">Editar</button>

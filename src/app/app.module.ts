@@ -24,6 +24,8 @@ import { TabelaConvitesUsuarioComponent } from './tabela-convites-usuario/tabela
 import { TabelaConvitesEmpresaComponent } from './tabela-convites-empresa/tabela-convites-empresa.component';
 import { TabelaFuncionariosComponent } from './tabela-funcionarios/tabela-funcionarios.component';
 import { ModalPermissoesUsuarioComponent } from './modal-permissoes-usuario/modal-permissoes-usuario.component';
+import { TabelaPedidoAgendamentoComponent } from './tabela-pedido-agendamento/tabela-pedido-agendamento.component';
+import { ModalPedidoAgendamentoComponent } from './modal-pedido-agendamento/modal-pedido-agendamento.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { ModalPermissoesUsuarioComponent } from './modal-permissoes-usuario/moda
     TabelaConvitesEmpresaComponent,
     TabelaFuncionariosComponent,
     ModalPermissoesUsuarioComponent,
+    TabelaPedidoAgendamentoComponent,
+    ModalPedidoAgendamentoComponent,
   ],
   imports: [
     BrowserModule,

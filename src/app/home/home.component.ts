@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {Permission} from "../model/Permission";
 import {WebService} from "../web.service";
 import {CompanyInvite} from "../model/CompanyInvite";
+import {ServiceRequest} from "../model/ServiceRequest";
 
 @Component({
   selector: 'app-home',
@@ -13,6 +14,7 @@ export class HomeComponent implements OnInit {
 
   user: any
   permission!: Permission
+  serviceRequest?: ServiceRequest
 
   constructor(private web: WebService) { }
 
@@ -40,5 +42,9 @@ export class HomeComponent implements OnInit {
         this.permission = res.body
       }
     })
+  }
+
+  setRequestSee(request: ServiceRequest) {
+    this.serviceRequest = request
   }
 }
