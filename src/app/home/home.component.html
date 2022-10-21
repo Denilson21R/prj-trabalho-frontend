@@ -21,7 +21,7 @@
           </div>
         </div>
         <ng-template [ngIf]="permission && permission.can_add_schedules && user">
-          <app-tabela-pedido-agendamento [user]="user" [permission]="permission!" [requestSelected]="serviceRequest" (emitResquest)="setRequestSee($event)"></app-tabela-pedido-agendamento>
+          <app-tabela-pedido-agendamento [user]="user" [permission]="permission!" [requestSelected]="serviceRequest" (emitRequest)="setRequestSee($event)"></app-tabela-pedido-agendamento>
         </ng-template>
       </main>
     </div>

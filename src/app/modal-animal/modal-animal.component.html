@@ -6,11 +6,37 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Form novo animal
+        <div class="mb-3">
+          <label for="name" class="form-label">Nome</label>
+          <input type="text" name="name" placeholder="Ex: Nina" class="form-control" id="name" [(ngModel)]="animal.name">
+        </div>
+        <ng-template [ngIf]="animalUpdate == null">
+          <div class="mb-3">
+            <label for="specie" class="form-label">Espécie</label>
+            <input type="text" name="specie" placeholder="Ex: Cachorro vira-lata" class="form-control" id="specie" [(ngModel)]="animal.specie">
+          </div>
+        </ng-template>
+        <div class="mb-3">
+          <label for="description" class="form-label">Descrição</label>
+          <textarea name="description" class="form-control" id="description"
+            [(ngModel)]="animal.description" placeholder="Ex: Muito peluda, muito pequena e faz muita bagunça">
+          </textarea>
+        </div>
+        <ng-template [ngIf]="animalUpdate != null">
+          <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-control" id="status" name="status" [(ngModel)]="animal.status">
+              <option [ngValue]="'ATIVO'" [selected]="animalUpdate.status == 'ATIVO'">ATIVO
+              </option>
+              <option [ngValue]="'INATIVO'" [selected]="animalUpdate.status == 'INATIVO'">INATIVO
+              </option>
+            </select>
+          </div>
+        </ng-template>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Adicionar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetAnimal()">Cancelar</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="saveAnimal()">Salvar</button>
       </div>
     </div>
   </div>

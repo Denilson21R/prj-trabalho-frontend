@@ -12,7 +12,7 @@ import {WebService} from "../web.service";
 export class TabelaPedidoAgendamentoComponent implements OnInit {
   @Input() user!: User
   @Input() permission!: Permission
-  @Output() emitResquest = new EventEmitter<ServiceRequest>();
+  @Output() emitRequest = new EventEmitter<ServiceRequest>();
   @Input() requestSelected?: ServiceRequest
   serviceRequests: ServiceRequest[] = []
 
@@ -29,6 +29,6 @@ export class TabelaPedidoAgendamentoComponent implements OnInit {
   }
 
   seeRequest(serviceRequest: ServiceRequest) {
-    this.emitResquest.emit(serviceRequest!);
+    this.emitRequest.emit(serviceRequest!);
   }
 }

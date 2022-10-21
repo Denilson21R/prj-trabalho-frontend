@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalServicoComponent } from './modal-servico.component';
+import { ModalServicoComponent } from './modal-salvar-servico.component';
 
 describe('ModalServicoComponent', () => {
   let component: ModalServicoComponent;

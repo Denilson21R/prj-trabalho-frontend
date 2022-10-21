@@ -1,0 +1,19 @@
+<div class="modal" tabindex="-1" id="modal-editar-agendamento">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Agendamento</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form>
+        <div class="modal-body">
+          {{schedule |json}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" #btnCancelar data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

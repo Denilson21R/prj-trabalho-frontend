@@ -32,6 +32,8 @@ export class AgendaComponent implements OnInit {
     this.web.getSchedulesByClientAnimals(this.user.id!).subscribe((res) => {
       if (res.ok && res.body != null) {
         this.schedules = res.body
+      }else{
+        this.schedules = []
       }
     })
     this.schedules = []

@@ -16,7 +16,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { ServicoComponent } from './servicos/servico.component';
 import { CardEmpresaComponent } from './card-empresa/card-empresa.component';
 import { EmpresaComponent } from './empresa/empresa.component';
-import { ModalServicoComponent } from './modal-servico/modal-servico.component';
+import {ModalSalvarServicoComponent} from './modal-salvar-servico/modal-salvar-servico.component';
 import { ModalAgendamentoComponent } from './modal-agendamento/modal-agendamento.component';
 import { ModalAnimalComponent } from './modal-animal/modal-animal.component';
 import { ModalConvidarUsuarioComponent } from './modal-convidar-usuario/modal-convidar-usuario.component';
@@ -26,6 +26,10 @@ import { TabelaFuncionariosComponent } from './tabela-funcionarios/tabela-funcio
 import { ModalPermissoesUsuarioComponent } from './modal-permissoes-usuario/modal-permissoes-usuario.component';
 import { TabelaPedidoAgendamentoComponent } from './tabela-pedido-agendamento/tabela-pedido-agendamento.component';
 import { ModalPedidoAgendamentoComponent } from './modal-pedido-agendamento/modal-pedido-agendamento.component';
+import { ModalCriarEmpresaComponent } from './modal-criar-empresa/modal-criar-empresa.component';
+import { TabelaAgendamentoComponent } from './tabela-agendamento/tabela-agendamento.component';
+import { ModalVisualizarAgendamentoComponent } from './modal-visualizar-agendamento/modal-visualizar-agendamento.component';
+import { ModalEditarAgendamentoComponent } from './modal-editar-agendamento/modal-editar-agendamento.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,7 @@ import { ModalPedidoAgendamentoComponent } from './modal-pedido-agendamento/moda
     ServicoComponent,
     CardEmpresaComponent,
     EmpresaComponent,
-    ModalServicoComponent,
+    ModalSalvarServicoComponent,
     ModalAgendamentoComponent,
     ModalAnimalComponent,
     ModalConvidarUsuarioComponent,
@@ -51,6 +55,10 @@ import { ModalPedidoAgendamentoComponent } from './modal-pedido-agendamento/moda
     ModalPermissoesUsuarioComponent,
     TabelaPedidoAgendamentoComponent,
     ModalPedidoAgendamentoComponent,
+    ModalCriarEmpresaComponent,
+    TabelaAgendamentoComponent,
+    ModalVisualizarAgendamentoComponent,
+    ModalEditarAgendamentoComponent,
   ],
   imports: [
     BrowserModule,

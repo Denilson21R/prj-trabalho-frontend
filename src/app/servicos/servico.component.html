@@ -14,9 +14,11 @@
           <h1 class="mt-4">Serviços</h1>
         </div>
       </div>
-      <div class="col-md-6">
-        <button class="btn btn-dark" id="btn-servico" data-bs-toggle="modal" data-bs-target="#modal-servico">Novo Serviço</button>
-      </div>
+      <ng-template [ngIf]="permission?.can_add_services">
+        <div class="col-md-6">
+          <button class="btn btn-dark" id="btn-servico" data-bs-toggle="modal" data-bs-target="#modal-servico" (click)="resetServiceUpdate()">Novo Serviço</button>
+        </div>
+      </ng-template>
     </div>
     <ng-template [ngIf]="services">
       <table class="table table-hover table-responsive mt-3" *ngIf="permission != null && services.length > 0">
@@ -24,16 +26,19 @@
         <tr>
           <th>Descrição</th>
           <th>Valor</th>
+          <th>Status</th>
           <th></th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let service of services">
           <td>{{service.description}}</td>
-          <td>{{service.value}}</td>
+          <td>R${{service.value}}</td>
+          <td>{{service.status}}</td>
           <td class="text-end">
-            <button class="btn btn-primary me-2">Editar</button>
-            <button class="btn btn-danger">Apagar</button>
+            <ng-template [ngIf]="permission!.can_add_services">
+              <button class="btn btn-primary me-2"  data-bs-toggle="modal" data-bs-target="#modal-servico" (click)="serviceUpdate = service">Editar</button>
+            </ng-template>
           </td>
         </tr>
         </tbody>
@@ -49,6 +54,8 @@
     </div>
   </main>
 </div>
-<app-modal-servico></app-modal-servico>
+<ng-template [ngIf]="permission != null">
+  <app-modal-salvar-servico [serviceUpdate]="serviceUpdate" [company]="permission.company" (emitReload)="reloadServices()"></app-modal-salvar-servico>
+</ng-template>
 </body>
 </html>

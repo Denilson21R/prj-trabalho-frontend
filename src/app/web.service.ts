@@ -13,7 +13,8 @@ import {ServiceRequest} from "./model/ServiceRequest";
 @Injectable({
   providedIn: 'root'
 })
-export class WebService {
+
+export class WebService { //TODO: try to divide in some services
 
   baseURL = "http://localhost:8080"
 
@@ -145,8 +146,50 @@ export class WebService {
     newSchedule = newSchedule.set("amount", String(schedule.amount));
     newSchedule = newSchedule.set("company", String(schedule.company.id));
     newSchedule = newSchedule.set("employee_schedule", String(schedule.employee_schedule.id));
-    newSchedule = newSchedule.set("services", String(this.convertArrayServicesToArrayOfStringId(schedule.services)));
+    newSchedule = newSchedule.set("services", String(this.convertArrayServicesToArrayOfStringId(schedule.service)));
     return this.http.post<Schedule>(this.baseURL + "/schedule", newSchedule, {observe: "response"})
+  }
+
+  addAnimal(animal: Animal){
+    let newAnimal = new HttpParams();
+    newAnimal = newAnimal.set("name", String(animal.name));
+    newAnimal = newAnimal.set("description", String(animal.description));
+    newAnimal = newAnimal.set("specie", String(animal.specie));
+    newAnimal = newAnimal.set("owner", String(animal.owner.id));
+    return this.http.post<Animal>(this.baseURL + "/animal", newAnimal, {observe: "response"})
+  }
+
+  updateAnimal(animal: Animal){
+    let animalData = new HttpParams();
+    animalData = animalData.set("name", String(animal.name));
+    animalData = animalData.set("description", String(animal.description));
+    animalData = animalData.set("status", String(this.getNumberForStatus(animal.status)));
+    return this.http.put<Animal>(this.baseURL + "/animal/" + animal.id, animalData, {observe: "response"})
+  }
+
+  addCompany(company: Company) {
+    let companyData = new HttpParams();
+    companyData = companyData.set("name", String(company.company_name))
+    companyData = companyData.set("email", String(company.email))
+    companyData = companyData.set("cnpj", String(company.cnpj))
+    companyData = companyData.set("user", String(company.user_create.id))
+    return this.http.post<Company>(this.baseURL + "/company", companyData, {observe: "response"})
+  }
+
+  addService(service: Service){
+    let serviceData = new HttpParams();
+    serviceData = serviceData.set("description", String(service.description))
+    serviceData = serviceData.set("value", String(service.value))
+    serviceData = serviceData.set("company", String(service.company.id))
+    return this.http.post<Service>(this.baseURL + "/service", serviceData, {observe: "response"})
+  }
+
+  updateService(service: Service){
+    let serviceData = new HttpParams();
+    serviceData = serviceData.set("description", String(service.description))
+    serviceData = serviceData.set("value", String(service.value))
+    serviceData = serviceData.set("status", String(this.getNumberForStatus(service.status)))
+    return this.http.put<Service>(this.baseURL + "/service/" + service.id, serviceData, {observe: "response"})
   }
 
   convertArrayServicesToArrayOfStringId(services: Service[]) {
@@ -156,12 +199,19 @@ export class WebService {
     })
     return serviceArrayId.join(", ")
   }
-
   private changeStatusForBackend(serviceRequest: ServiceRequest) {
     if (serviceRequest.status == "ACEITO") {
       serviceRequest.status = "1"
     } else {
       serviceRequest.status = "2"
+    }
+  }
+
+  private getNumberForStatus(status: String) {
+    if(status == "ATIVO"){
+      return "0"
+    }else{
+      return "1"
     }
   }
 }

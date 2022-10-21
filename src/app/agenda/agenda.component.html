@@ -20,31 +20,7 @@
         </div>
       </ng-template>
     </div>
-    <table class="table table-hover mt-3" *ngIf="schedules.length > 0">
-      <thead>
-      <tr>
-        <th>Data</th>
-        <th>Animal</th>
-        <th>Valor</th>
-        <th>Pago</th>
-        <th>Status</th>
-        <th></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let schedule of schedules">
-        <td>{{schedule.date | date:'dd/MM/y hh:mm'}}</td>
-        <td>{{schedule.animal.name}}</td>
-        <td>R${{schedule.amount.toString()}}</td>
-        <td>{{schedule.paid? "Sim" :"Não"}}</td>
-        <td>{{schedule.status}}</td>
-        <td class="text-end">
-          <button class="btn btn-primary me-2">Editar</button>
-          <button class="btn btn-danger">Apagar</button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    <app-tabela-agendamento [schedules]="schedules" [user]="user" [permission]="permission"></app-tabela-agendamento>
     <div class="row ms-4 mt-4">
       <div class="alert alert-danger col-md-6" role="alert" *ngIf="schedules.length == 0 && (permission != null && user.type == 'EMPLOYEE' || user.type == 'CLIENT')">
         Nenhum agendamento encontrado!

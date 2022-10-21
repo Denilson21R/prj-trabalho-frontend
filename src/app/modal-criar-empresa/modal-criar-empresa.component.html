@@ -1,0 +1,36 @@
+<div class="modal" tabindex="-1" id="modal-criar-empresa">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Criar empresa</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form (ngSubmit)="saveCompany()">
+      <div class="modal-body">
+        <div class="row justify-content-between text-left">
+          <div class="form-group  flex-column d-flex">
+            <label for="name" class="form-label">Nome da empresa</label>
+            <input type="text" name="name" id="name" class="form-control" required [(ngModel)]="company.company_name"/>
+          </div>
+        </div>
+        <div class="row justify-content-between text-left mt-3">
+          <div class="form-group  flex-column d-flex">
+            <label for="email" class="form-label">E-mail da empresa</label>
+            <input type="email" name="email" id="email" class="form-control" required [(ngModel)]="company.email"/>
+          </div>
+        </div>
+        <div class="row justify-content-between text-left mt-3">
+          <div class="form-group  flex-column d-flex">
+            <label for="name" class="form-label">Cnpj da empresa</label>
+            <input type="text" name="cnpj" id="cnpj" class="form-control" required [(ngModel)]="company.cnpj"/>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" #btnCancelar data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Criar</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>

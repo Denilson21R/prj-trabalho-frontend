@@ -8,7 +8,7 @@ export class Schedule{
   date!: Date
   employee_execute?: User
   employee_schedule!: User
-  services!: Service[]
+  service!: Service[]
   animal!: Animal
   status!: String
   paid!: boolean

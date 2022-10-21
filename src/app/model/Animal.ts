@@ -6,4 +6,5 @@ export class Animal {
   name!: String
   specie!: String
   description!: String
+  status!: String
 }

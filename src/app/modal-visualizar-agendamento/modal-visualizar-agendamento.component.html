@@ -1,0 +1,26 @@
+<div class="modal" tabindex="-1" id="modal-visualizar-agendamento">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Visualizar Agendamento</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        <div class="modal-body">
+          <ng-template [ngIf]="schedule">
+            <label for="date" class="form-label">Data</label>
+            <input type="datetime-local" class="form-control" id="date" [(ngModel)]="schedule.date" readonly>
+            <label for="company" class="form-label mt-3">Empresa</label>
+            <input type="text" class="form-control" id="company" [(ngModel)]="schedule.company.company_name" readonly>
+            <label for="animal" class="form-label mt-3">Animal</label>
+            <input type="text" class="form-control" id="animal" [(ngModel)]="schedule.animal.name" readonly>
+            <label for="amount" class="form-label mt-3">Valor</label>
+            <input type="number" class="form-control" id="amount" [(ngModel)]="schedule.amount" readonly>
+            <label class="form-label mt-3">Serviços</label>
+            <ul class="list-group">
+              <li class="list-group-item" *ngFor="let service of schedule.service">{{service.description}} - R${{service.value}}</li>
+            </ul>
+          </ng-template>
+        </div>
+    </div>
+  </div>
+</div>

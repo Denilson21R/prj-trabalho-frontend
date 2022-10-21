@@ -1,0 +1,35 @@
+<table class="table table-hover mt-3" *ngIf="schedules.length > 0">
+  <thead>
+  <tr>
+    <th>Data</th>
+    <th>Animal</th>
+    <th>Valor</th>
+    <th>Pago</th>
+    <th>Status</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let schedule of schedules">
+    <td>{{schedule.date | date:'dd/MM/y hh:mm'}}</td>
+    <td>{{schedule.animal.name}}</td>
+    <td>R${{schedule.amount.toString()}}</td>
+    <td>{{schedule.paid? "Sim" :"Não"}}</td>
+    <td>{{schedule.status}}</td>
+    <td class="text-end">
+      <ng-template [ngIf]="user.type == 'EMPLOYEE' && permission?.can_add_schedules">
+        <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modal-editar-agendamento" (click)="setScheduleSelected(schedule)">Editar</button>
+      </ng-template>
+      <ng-template [ngIf]="user.type == 'CLIENT'">
+        <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modal-visualizar-agendamento" (click)="setScheduleSelected(schedule)">Visualizar</button>
+      </ng-template>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<ng-template [ngIf]="user.type == 'CLIENT'">
+  <app-modal-visualizar-agendamento [schedule]="scheduleSelected!"></app-modal-visualizar-agendamento>
+</ng-template>
+<ng-template [ngIf]="user.type == 'EMPLOYEE' && permission?.can_add_schedules">
+  <app-modal-editar-agendamento [schedule]="scheduleSelected!"></app-modal-editar-agendamento>
+</ng-template>

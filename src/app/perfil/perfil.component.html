@@ -46,7 +46,7 @@
             </div>
             <div class="col-6">
               <div *ngIf="!permission" class="alert alert-danger" role="alert">
-                Você ainda não está em uma empresa, <a href="#" class="alert-link">crie uma</a> ou aceite um convite para poder usar nossas funcionalidades!
+                Você ainda não está em uma empresa, <a class="alert-link" data-bs-toggle="modal" data-bs-target="#modal-criar-empresa">crie uma</a> ou aceite um convite para poder usar nossas funcionalidades!
               </div>
               <app-tabela-convites-usuario [invites]="invites" (emitNewCompany)="addNewPermission($event)"></app-tabela-convites-usuario>
             </div>
@@ -54,5 +54,8 @@
         </div>
       </main>
     </div>
+    <ng-template [ngIf]="!permission">
+      <app-modal-criar-empresa></app-modal-criar-empresa>
+    </ng-template>
   </body>
 </html>

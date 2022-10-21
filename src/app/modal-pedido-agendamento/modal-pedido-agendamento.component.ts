@@ -68,7 +68,7 @@ export class ModalPedidoAgendamentoComponent implements OnInit {
   }
 
   private fillSchedule(schedule: Schedule, res: HttpResponse<ServiceRequest>) {
-    schedule.services = res.body!.requested_services
+    schedule.service = res.body!.requested_services
     schedule.company = res.body!.company
     schedule.date = res.body!.serviceDate
     schedule.amount = this.totalValue

@@ -7,4 +7,5 @@ export class Service{
   description!: String
   value!: number
   company!: Company
+  status!: String
 }
