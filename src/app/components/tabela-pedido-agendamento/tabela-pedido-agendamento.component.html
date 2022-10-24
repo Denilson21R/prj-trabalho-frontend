@@ -1,0 +1,33 @@
+<div class="row mt-5 ms-3">
+  <h5 class="me-4">Pedidos de Serviço</h5>
+  <ng-template [ngIf]="serviceRequests && serviceRequests.length > 0">
+    <table class="table table-responsive table-hover ms-3">
+      <thead>
+      <th>Cliente</th>
+      <th>Animal</th>
+      <th>Data</th>
+      <th>Status</th>
+      <th></th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let serviceRequest of serviceRequests">
+        <td>{{serviceRequest.client.name}}</td>
+        <td>{{serviceRequest.animal.name}}</td>
+        <td>{{serviceRequest.serviceDate | date:'dd/MM/y H:mm'}}</td>
+        <td>{{serviceRequest.status}}</td>
+        <td class="text-end">
+          <button class="btn btn-secondary me-4" data-bs-toggle="modal" data-bs-target="#modal-pedido-agendamento" (click)="seeRequest(serviceRequest)">
+          Visualizar
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <app-modal-pedido-agendamento [requestSelected]="requestSelected"></app-modal-pedido-agendamento>
+  </ng-template>
+  <ng-template [ngIf]="!serviceRequests || serviceRequests.length == 0">
+    <div class="alert alert-danger col-md-6 mt-3" role="alert">
+      Nenhum pedido ser serviço foi encontrado!
+    </div>
+  </ng-template>
+</div>

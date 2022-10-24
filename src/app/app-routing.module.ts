@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
-import { HomeComponent } from './home/home.component';
-import { CadastroComponent } from './cadastro/cadastro.component';
-import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './components/home/home.component';
+import { CadastroComponent } from './components/cadastro/cadastro.component';
+import { LoginComponent } from './components/login/login.component';
 import { RouterModule, Routes } from '@angular/router';
-import {AgendaComponent} from "./agenda/agenda.component";
-import {AnimaisComponent} from "./animais/animais.component";
-import {PerfilComponent} from "./perfil/perfil.component";
-import {ServicoComponent} from "./servicos/servico.component";
-import {EmpresaComponent} from "./empresa/empresa.component";
+import {AgendaComponent} from "./components/agenda/agenda.component";
+import {AnimaisComponent} from "./components/animais/animais.component";
+import {PerfilComponent} from "./components/perfil/perfil.component";
+import {ServicoComponent} from "./components/servicos/servico.component";
+import {EmpresaComponent} from "./components/empresa/empresa.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

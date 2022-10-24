@@ -1,0 +1,48 @@
+<div class="modal" tabindex="-1" id="modal-permissoes-usuario">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <ng-template [ngIf]="user">
+          <h5 class="modal-title">Permissões - {{user.name}}</h5>
+        </ng-template>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form class="mt-3" (ngSubmit)="updatePermission()">
+        <div class="modal-body">
+          <ng-template [ngIf]="user && permission">
+              <div class="mb-3">
+                <label for="name" class="form-label">Nome</label>
+                <input type="text" [(ngModel)]="user.name" name="name" class="form-control" id="name" readonly>
+              </div>
+              <div class="mb-3">
+                <label for="name" class="form-label">E-mail</label>
+                <input type="text" [(ngModel)]="user.email" name="email" class="form-control" id="email" readonly>
+              </div>
+              <div class="mb-3">
+                <div class="form-check">
+                  <input class="form-check-input" [(ngModel)]="permission.can_add_schedules" name="add-schedules" type="checkbox" value="" id="add-schedules" [checked]="permission.can_add_schedules">
+                  <label class="form-check-label" for="add-schedules">
+                    Gerenciar Agendamentos
+                  </label>
+                </div>
+              </div>
+              <div class="mb-3">
+                <div class="form-check">
+                  <input class="form-check-input" [(ngModel)]="permission.can_add_services" name="add_services" type="checkbox" value="" id="add-services" [checked]="permission.can_add_services" >
+                  <label class="form-check-label" for="add-services">
+                    Gerenciar Serviços
+                  </label>
+                </div>
+              </div>
+          </ng-template>
+        </div>
+        <div class="modal-footer">
+          <ng-template [ngIf]="permission">
+            <button type="submit" class="btn btn-primary" [disabled]="permission.company_owner">Atualizar</button>
+          </ng-template>
+          <button type="button" class="btn btn-secondary" #btnCancelar data-bs-dismiss="modal">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

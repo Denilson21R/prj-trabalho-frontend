@@ -1,0 +1,50 @@
+<div class="modal" tabindex="-1" id="modal-agendamento">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form #scheduleForm="ngForm" (ngSubmit)="saveSchedule(scheduleForm)">
+        <div class="modal-header">
+          <h5 class="modal-title">Novo Agendamento</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="date" class="form-label">Data</label>
+            <input type="datetime-local" min="{{dateToday}}" name="date" class="form-control" id="date" [(ngModel)]="date">
+          </div>
+          <ng-template [ngIf]="companies">
+            <label for="companies" class="form-label">Selecione uma empresa</label>
+            <select id="companies" class="form-select mb-3" name="companies" [(ngModel)]="companySelected" (ngModelChange)="getServicesByCompany()">
+              <option *ngFor="let company of companies" value="{{company.id}}">
+                {{company.company_name}}
+              </option>
+            </select>
+          </ng-template>
+          <ng-template [ngIf]="animals">
+            <label for="animal" class="form-label">Selecione um animal</label>
+            <select id="animal" class="form-select mb-3" aria-label="Default select example" name="animal" [(ngModel)]="animalSelected">
+              <option *ngFor="let animal of animals" value="{{animal.id}}">
+                {{animal.name}}
+              </option>
+            </select>
+          </ng-template>
+          <ng-template [ngIf]="services">
+            <label class="form-label">Selecione os serviços</label>
+            <div class="form-check" *ngFor="let service of services; index as i">
+              <input class="form-check-input" name="service{{service.id}}" type="checkbox" [value]="service.id" [(ngModel)]="servicesSelected[i]" (ngModelChange)="calculateTotalValue()">
+              <label class="form-check-label">
+                {{service.description +" - R$"+ service.value}}
+              </label>
+            </div>
+          </ng-template>
+          <ng-template [ngIf]="totalValue">
+            <div class="mt-4 fw-bold">Valor total: {{totalValue}}</div>
+          </ng-template>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" #btnCancelar data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Adicionar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

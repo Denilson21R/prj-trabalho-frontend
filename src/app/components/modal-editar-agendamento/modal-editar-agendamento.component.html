@@ -1,0 +1,69 @@
+<div class="modal" tabindex="-1" id="modal-editar-agendamento">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Agendamento</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form (ngSubmit)="saveSchedule()">
+        <div class="modal-body">
+          <ng-template [ngIf]="schedule">
+            <div class="row">
+              <div class="col-6">
+                <label for="date" class="form-label">Data</label>
+                <input type="datetime-local" name="date" class="form-control" id="date" [(ngModel)]="schedule.date" readonly>
+              </div>
+              <div class="col-6">
+                <label for="company" class="form-label">Empresa</label>
+                <input type="text" name="company" class="form-control" id="company" [(ngModel)]="schedule.company.company_name" readonly>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <label for="animal" class="form-label mt-3">Animal</label>
+                <input type="text" name="animal" class="form-control" id="animal" [(ngModel)]="schedule.animal.name" readonly>
+              </div>
+              <div class="col-6">
+                <label for="amount" class="form-label mt-3">Valor</label>
+                <input type="number" name="amount" class="form-control" id="amount" [(ngModel)]="schedule.amount" readonly>
+              </div>
+            </div>
+            <label class="form-label mt-3">Serviços</label>
+            <ul class="list-group">
+              <li class="list-group-item" *ngFor="let service of schedule.service">{{service.description}} - R${{service.value}}</li>
+            </ul>
+            <label for="status" class="form-label mt-3">Status</label>
+            <select name="status" class="form-control" id="status" [(ngModel)]="schedule.status">
+              <ng-template [ngIf]="schedule.status == 'NOVO'">
+                <option [ngValue]="'NOVO'">NOVO</option>
+                <option [ngValue]="'EXECUTANDO'">EXECUTANDO</option>
+                <option [ngValue]="'FINALIZADO'">FINALIZADO</option>
+                <option [ngValue]="'CANCELADO'">CANCELADO</option>
+              </ng-template>
+              <ng-template [ngIf]="schedule.status == 'EXECUTANDO'">
+                <option [ngValue]="'EXECUTANDO'">EXECUTANDO</option>
+                <option [ngValue]="'FINALIZADO'">FINALIZADO</option>
+                <option [ngValue]="'CANCELADO'">CANCELADO</option>
+              </ng-template>
+              <ng-template [ngIf]="schedule.status == 'FINALIZADO'">
+                 <option [ngValue]="'FINALIZADO'">FINALIZADO</option>
+              </ng-template>
+              <ng-template [ngIf]="schedule.status == 'CANCELADO'">
+                <option [ngValue]="'CANCELADO'">CANCELADO</option>
+              </ng-template>
+            </select>
+            <label for="paid" class="form-label mt-3">Pago</label>
+            <select name="paid" class="form-control" id="paid" [(ngModel)]="schedule.paid">
+              <option [ngValue]="true">PAGO</option>
+              <option [ngValue]="false">NÃO PAGO</option>
+            </select>
+          </ng-template>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

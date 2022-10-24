@@ -46,6 +46,9 @@ export class WebService { //TODO: try to divide in some services
     userAuthenticate = userAuthenticate.set("name", String(user.name));
     userAuthenticate = userAuthenticate.set("email", String(user.email));
     userAuthenticate = userAuthenticate.set("phone", String(user.phone));
+    if(user.password != null){
+      userAuthenticate = userAuthenticate.set("password", String(user.password));
+    }
     return this.http.put(this.baseURL + "/user/" + user.id!, userAuthenticate, {observe: "response"})
   }
 
@@ -130,6 +133,10 @@ export class WebService { //TODO: try to divide in some services
     return this.http.get<ServiceRequest[]>(this.baseURL + "/requests/company/" + String(company_id), {observe: "response"})
   }
 
+  getServiceRequestsByUser(user_id: Number) {
+    return this.http.get<ServiceRequest[]>(this.baseURL + "/requests/user/" + String(user_id), {observe: "response"})
+  }
+
   updateServiceRequest(serviceRequest: ServiceRequest){
     this.changeStatusForBackend(serviceRequest);
     let newRequest = new HttpParams();
@@ -192,6 +199,13 @@ export class WebService { //TODO: try to divide in some services
     return this.http.put<Service>(this.baseURL + "/service/" + service.id, serviceData, {observe: "response"})
   }
 
+  updateSchedule(schedule: Schedule){
+    let scheduleData = new HttpParams();
+    scheduleData = scheduleData.set("paid", String(schedule.paid))
+    scheduleData = scheduleData.set("status", String(this.changeScheduleStatusForBackend(schedule)))
+    return this.http.put<Schedule>(this.baseURL + "/schedule/" + schedule.id, scheduleData, {observe: "response"})
+  }
+
   convertArrayServicesToArrayOfStringId(services: Service[]) {
     let serviceArrayId: String[] = []
     services.forEach((service)=>{
@@ -199,11 +213,24 @@ export class WebService { //TODO: try to divide in some services
     })
     return serviceArrayId.join(", ")
   }
+
   private changeStatusForBackend(serviceRequest: ServiceRequest) {
     if (serviceRequest.status == "ACEITO") {
       serviceRequest.status = "1"
-    } else {
+    } else { //RECUSADO
       serviceRequest.status = "2"
+    }
+  }
+
+  private changeScheduleStatusForBackend(schedule: Schedule) {
+    if (schedule.status == "NOVO") {
+      return "0"
+    } else if(schedule.status == "EXECUTANDO") {
+      return "1"
+    }else if(schedule.status == "FINALIZADO") {
+      return "2"
+    }else{ //CANCELADO
+      return "3"
     }
   }
 

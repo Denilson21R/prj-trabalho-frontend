@@ -6,5 +6,4 @@ export class User {
   name!: String
   type!: String
   status?: String
-  pathImage!: String
 }
