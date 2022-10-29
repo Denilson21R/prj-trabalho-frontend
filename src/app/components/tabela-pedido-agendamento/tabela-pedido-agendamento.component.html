@@ -1,7 +1,6 @@
-<div class="row mt-5 ms-3">
-  <h5 class="me-4">Pedidos de Serviço</h5>
+<div class="row mt-5">
   <ng-template [ngIf]="serviceRequests && serviceRequests.length > 0">
-    <table class="table table-responsive table-hover ms-3">
+    <table class="table table-responsive table-hover">
       <thead>
       <th>Cliente</th>
       <th>Animal</th>
@@ -16,9 +15,11 @@
         <td>{{serviceRequest.serviceDate | date:'dd/MM/y H:mm'}}</td>
         <td>{{serviceRequest.status}}</td>
         <td class="text-end">
-          <button class="btn btn-secondary me-4" data-bs-toggle="modal" data-bs-target="#modal-pedido-agendamento" (click)="seeRequest(serviceRequest)">
-          Visualizar
-          </button>
+          <ng-template [ngIf]="user.type == 'CLIENT' || user.type == 'EMPLOYEE' && permission.can_add_schedules">
+            <button class="btn btn-secondary me-4" data-bs-toggle="modal" data-bs-target="#modal-pedido-agendamento" (click)="seeRequest(serviceRequest)">
+              Visualizar
+            </button>
+          </ng-template>
         </td>
       </tr>
       </tbody>

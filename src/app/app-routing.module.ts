@@ -8,6 +8,7 @@ import {AnimaisComponent} from "./components/animais/animais.component";
 import {PerfilComponent} from "./components/perfil/perfil.component";
 import {ServicoComponent} from "./components/servicos/servico.component";
 import {EmpresaComponent} from "./components/empresa/empresa.component";
+import {PedidosComponent} from "./components/pedidos/pedidos.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'perfil', component: PerfilComponent },
   { path: 'servicos', component: ServicoComponent },
   { path: 'empresa', component: EmpresaComponent },
+  { path: 'pedidos', component: PedidosComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 

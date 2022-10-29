@@ -1,0 +1,18 @@
+<div class="row ms-3 mt-5">
+  <div class="col-5">
+    <ng-template [ngIf]="qtddSchedules">
+      <div class="alert alert-success" role="alert">
+        <i class="bi bi-exclamation-triangle-fill"></i> {{qtddSchedules}} agendamento(s) hoje,
+        <a routerLink="/agenda" class="alert-link">clique para ver</a>
+      </div>
+    </ng-template>
+  </div>
+  <div class="col-5 ms-5">
+    <ng-template [ngIf]="qtddServices">
+      <div class="alert alert-primary" role="alert">
+        <i class="bi bi-exclamation-triangle-fill"></i> {{qtddServices}} pedidos de serviço aberto(s),
+        <a routerLink="/pedidos" class="alert-link">clique para ver</a>
+      </div>
+    </ng-template>
+  </div>
+</div>

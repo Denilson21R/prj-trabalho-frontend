@@ -6,7 +6,6 @@ import {Company} from "./Company";
 export class Schedule{
   id?: Number
   date!: Date
-  employee_execute?: User
   employee_schedule!: User
   service!: Service[]
   animal!: Animal

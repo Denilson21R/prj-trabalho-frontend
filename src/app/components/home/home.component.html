@@ -20,14 +20,9 @@
             </div>
           </div>
         </div>
-        <div class="col-8 tabela-pedido">
-          <ng-template [ngIf]="permission && permission.can_add_schedules && user">
-            <app-tabela-pedido-agendamento [user]="user" [permission]="permission!" [requestSelected]="serviceRequest" (emitRequest)="setRequestSee($event)"></app-tabela-pedido-agendamento>
-          </ng-template>
-          <ng-template [ngIf]="user.type == 'CLIENT'">
-            <app-tabela-pedido-agendamento [user]="user" [requestSelected]="serviceRequest" (emitRequest)="setRequestSee($event)"></app-tabela-pedido-agendamento>
-          </ng-template>
-        </div>
+        <ng-template [ngIf]="permissionFinded == true">
+          <app-contadores-dados [user]="user" [permission]="permission"></app-contadores-dados>
+        </ng-template>
       </main>
     </div>
   </body>

@@ -64,4 +64,14 @@ export class EmpresaComponent implements OnInit {
       this.userSeePermission = newUser
     }
   }
+
+  updateCompany() {
+    this.web.updateCompany(this.permission.company).subscribe((res)=>{
+      if(res.ok){
+        //TODO: show success
+      }else{
+        //TODO: show error
+      }
+    })
+  }
 }

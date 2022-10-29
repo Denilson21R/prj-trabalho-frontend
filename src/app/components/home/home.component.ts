@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   user: any
   permission!: Permission
   serviceRequest?: ServiceRequest
+  permissionFinded = false
 
   constructor(private web: WebService) { }
 
@@ -40,6 +41,7 @@ export class HomeComponent implements OnInit {
       if (res.ok && res.body != null) {
         this.permission = res.body
       }
+      this.permissionFinded = true
     })
   }
 

@@ -22,7 +22,9 @@ export class TabelaConvitesUsuarioComponent implements OnInit {
       this.web.updateCompanyInvite(status, invite_id).subscribe((res) => {
         if(res.ok){
           this.invites.splice(index.valueOf(), 1)
-          this.emitNewCompany.emit(company_id);
+          if(status == 1){
+            this.emitNewCompany.emit(company_id);
+          }
           //TODO: show success to user
         }else{
           //TODO: show error to user

@@ -19,19 +19,20 @@ export class ModalConvidarUsuarioComponent implements OnInit {
   }
 
   convidar() {
-    //TODO: alert user
-    if(this.emailUsuario != ""){
+    if(this.emailUsuario != "" && this.emailUsuario != sessionStorage.getItem('user.email')){
       this.web.addInviteToUserByEmail(this.emailUsuario, this.company).subscribe((res) => {
         if(res.status == 201){
-          //criado
           this.emailUsuario = ""
-          this.closeModal.nativeElement.click()
+          //TODO: emit new invite
         }else if(res.status == 404){
-          //usuario nao encontrado
+          //TODO: usuario nao encontrado
         }else{
-          //ocorreu um erro
+          //TODO: ocorreu um erro
         }
       })
+    }else{
+      //TODO:show error
     }
+    this.closeModal.nativeElement.click()
   }
 }

@@ -14,7 +14,7 @@ import {ServiceRequest} from "./model/ServiceRequest";
   providedIn: 'root'
 })
 
-export class WebService { //TODO: try to divide in some services
+export class WebService { //TODO: divide in different services
 
   baseURL = "http://localhost:8080"
 
@@ -178,8 +178,10 @@ export class WebService { //TODO: try to divide in some services
     let companyData = new HttpParams();
     companyData = companyData.set("name", String(company.company_name))
     companyData = companyData.set("email", String(company.email))
-    companyData = companyData.set("cnpj", String(company.cnpj))
     companyData = companyData.set("user", String(company.user_create.id))
+    if(company.cnpj){
+      companyData = companyData.set("cnpj", String(company.cnpj))
+    }
     return this.http.post<Company>(this.baseURL + "/company", companyData, {observe: "response"})
   }
 
@@ -204,6 +206,32 @@ export class WebService { //TODO: try to divide in some services
     scheduleData = scheduleData.set("paid", String(schedule.paid))
     scheduleData = scheduleData.set("status", String(this.changeScheduleStatusForBackend(schedule)))
     return this.http.put<Schedule>(this.baseURL + "/schedule/" + schedule.id, scheduleData, {observe: "response"})
+  }
+
+  getQtddSchedulesClient(user_id: Number) {
+    return this.http.get<Number>(this.baseURL + "/schedules/user/" + String(user_id) + "/quantity", {observe: "response"})
+  }
+
+  getQtddSchedulesCompany(company_id: Number) {
+    return this.http.get<Number>(this.baseURL + "/schedules/company/" + String(company_id) + "/quantity", {observe: "response"})
+  }
+
+  getQtddServicesClient(user_id: Number) {
+    return this.http.get<Number>(this.baseURL + "/requests/user/" + String(user_id) + "/quantity", {observe: "response"})
+  }
+
+  getQtddServicesCompany(company_id: Number) {
+    return this.http.get<Number>(this.baseURL + "/requests/company/" + String(company_id) + "/quantity", {observe: "response"})
+  }
+
+  updateCompany(company: Company) {
+    let companyData = new HttpParams();
+    if(company.cnpj){
+      companyData = companyData.set("cnpj", String(company.cnpj))
+    }
+    companyData = companyData.set("name", String(company.company_name))
+    companyData = companyData.set("email", String(company.email))
+    return this.http.put<Company>(this.baseURL + "/company/" + company.id, companyData, {observe: "response"})
   }
 
   convertArrayServicesToArrayOfStringId(services: Service[]) {
@@ -241,4 +269,5 @@ export class WebService { //TODO: try to divide in some services
       return "1"
     }
   }
+
 }

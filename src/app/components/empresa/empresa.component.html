@@ -33,7 +33,7 @@
       </ul>
       <div class="tab-content" id="content">
         <div class="tab-pane fade show active" id="data-tab-pane" role="tabpanel" aria-labelledby="data-tab">
-          <form class="mt-3" *ngIf="permission">
+          <form class="mt-3" *ngIf="permission" (ngSubmit)="updateCompany()">
             <div class="mb-3">
               <label for="name" class="form-label">Nome</label>
               <input type="text" [(ngModel)]="permission.company.company_name" name="name" class="form-control" id="name">

@@ -30,6 +30,8 @@ import { ModalCriarEmpresaComponent } from './components/modal-criar-empresa/mod
 import { TabelaAgendamentoComponent } from './components/tabela-agendamento/tabela-agendamento.component';
 import { ModalVisualizarAgendamentoComponent } from './components/modal-visualizar-agendamento/modal-visualizar-agendamento.component';
 import { ModalEditarAgendamentoComponent } from './components/modal-editar-agendamento/modal-editar-agendamento.component';
+import { PedidosComponent } from './components/pedidos/pedidos.component';
+import { ContadoresDadosComponent } from './components/contadores-dados/contadores-dados.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,8 @@ import { ModalEditarAgendamentoComponent } from './components/modal-editar-agend
     TabelaAgendamentoComponent,
     ModalVisualizarAgendamentoComponent,
     ModalEditarAgendamentoComponent,
+    PedidosComponent,
+    ContadoresDadosComponent,
   ],
   imports: [
     BrowserModule,

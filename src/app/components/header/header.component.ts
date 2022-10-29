@@ -11,7 +11,7 @@ import {WebService} from "../../web.service";
 export class HeaderComponent implements OnInit {
 
   userId!: Number
-  userName!: String
+  userName!: string
   userType!: String
   invites: CompanyInvite[] = []
 
