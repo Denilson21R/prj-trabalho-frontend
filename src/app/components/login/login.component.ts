@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { WebService } from '../../web.service';
 import {Router} from "@angular/router"
+import {ToastrService} from "ngx-toastr";
+import {UserServiceService} from "../../services/user-service.service";
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,11 @@ import {Router} from "@angular/router"
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private web: WebService, private router: Router) { }
+  constructor(
+    private userWeb: UserServiceService,
+    private router: Router,
+    private toast: ToastrService
+  ) { }
 
   ngOnInit(): void {
     if(sessionStorage.length > 0){
@@ -22,12 +27,18 @@ export class LoginComponent implements OnInit {
 
   login(form: NgForm) {
     if(form.valid){
-      this.web.signInUser(form.value).subscribe(res => {
-        this.saveUserDataInSession(res);
-        this.router.navigate(['home'])
+      this.userWeb.signInUser(form.value).subscribe((res) => {
+        if(res.status == 200){
+          this.saveUserDataInSession(res);
+          this.router.navigate(['home'])
+        }else if(res.status == 204){
+          this.toast.error('Senha ou e-mail incorretos!')
+        }else{
+          this.toast.error('Ocorreu um erro durante o login!')
+        }
       })
     }else{
-      //TODO: show error message to user
+      this.toast.error('Dados inválidos!')
     }
   }
 

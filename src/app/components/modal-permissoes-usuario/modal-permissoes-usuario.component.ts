@@ -2,6 +2,8 @@ import {Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild} from '@a
 import {Permission} from "../../model/Permission";
 import {User} from "../../model/User";
 import {WebService} from "../../web.service";
+import {ToastrService} from "ngx-toastr";
+import {PermissionServiceService} from "../../services/permission-service.service";
 
 @Component({
   selector: 'app-modal-permissoes-usuario',
@@ -13,14 +15,17 @@ export class ModalPermissoesUsuarioComponent implements OnInit {
   permission?: Permission
   @ViewChild('btnCancelar') closeModal!: ElementRef
 
-  constructor(private web: WebService) { }
+  constructor(
+    private permissionWeb: PermissionServiceService,
+    private toast: ToastrService
+  ) { }
 
   ngOnInit(): void {
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if(changes['user'].currentValue?.id) {
-      this.web.getUserPermissions(changes['user'].currentValue?.id).subscribe((res) => {
+      this.permissionWeb.getUserPermissions(changes['user'].currentValue?.id).subscribe((res) => {
         if(res.ok){
           this.user = res.body?.user!
           this.permission = res.body!
@@ -31,11 +36,11 @@ export class ModalPermissoesUsuarioComponent implements OnInit {
 
   updatePermission() {
     if(this.permission){
-      this.web.updatePermission(this.permission).subscribe((res)=>{
+      this.permissionWeb.updatePermission(this.permission).subscribe((res)=>{
         if(res.ok){
-          //show success to user
+          this.toast.success('Permissões atualizadas com sucesso!')
         }else{
-          //TODO: show error to user
+          this.toast.error('Ocorreu um erro ao atualizar as permissões!')
         }
         this.closeModal.nativeElement.click()
       })

@@ -4,6 +4,7 @@ import {WebService} from "../../web.service";
 import {Schedule} from "../../model/Schedule";
 import {User} from "../../model/User";
 import {HttpResponse} from "@angular/common/http";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-modal-pedido-agendamento',
@@ -15,7 +16,7 @@ export class ModalPedidoAgendamentoComponent implements OnInit {
   totalValue: number = 0;
   user: User = new User()
 
-  constructor(private web: WebService) { }
+  constructor(private web: WebService, private toast: ToastrService) { }
 
   ngOnInit(): void {
     this.user.type = sessionStorage.getItem('user.type')!
@@ -38,11 +39,11 @@ export class ModalPedidoAgendamentoComponent implements OnInit {
       this.requestSelected!.status = "ACEITO"
       this.updateServiceRequest();
     }else if(status == 2){
-      //passamos para o backend o index do enum, não a string
+      //index of enum is sent to backend
       this.requestSelected!.status = "RECUSADO"
       this.updateServiceRequest();
     }else{
-      //TODO: show error to user
+      this.toast.error('Ocorreu um erro ao atualizar o pedido!')
     }
   }
 
@@ -55,16 +56,16 @@ export class ModalPedidoAgendamentoComponent implements OnInit {
           this.fillSchedule(schedule, res);
           this.web.addSchedule(schedule).subscribe((response)=>{
             if(response.ok){
-              //TODO: show success to user
+              this.toast.success('Agendamento criado com sucesso!')
             }else{
-              //TODO: show error about the schedule create
+              this.toast.error('Ocorreu um erro ao criar o agendamento!')
             }
           })
         }else if(res.body?.status == "NEGADO"){
-          //TODO: show success
+          this.toast.success('Agendamento recusado com sucesso!')
         }
       }else{
-        //TODO: show error
+        this.toast.error('Ocorreu um erro durante a atualização do pedido!')
       }
     })
   }

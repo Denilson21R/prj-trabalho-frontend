@@ -3,6 +3,7 @@ import {User} from "../../model/User";
 import {Permission} from "../../model/Permission";
 import {ServiceRequest} from "../../model/ServiceRequest";
 import {WebService} from "../../web.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-tabela-pedido-agendamento',
@@ -16,7 +17,7 @@ export class TabelaPedidoAgendamentoComponent implements OnInit {
   @Input() requestSelected?: ServiceRequest
   serviceRequests: ServiceRequest[] = []
 
-  constructor(private web: WebService) { }
+  constructor(private web: WebService, private toast: ToastrService) { }
 
   ngOnInit(): void {
     if(this.user.type == 'EMPLOYEE'){
@@ -24,7 +25,7 @@ export class TabelaPedidoAgendamentoComponent implements OnInit {
         if(res.ok){
           this.serviceRequests = res.body!
         }else{
-          //TODO: show error to load service requests
+          this.toast.success('Ocorreu um erro ao carregar os pedidos!')
         }
       })
     }else if(this.user.type == 'CLIENT'){
@@ -32,7 +33,7 @@ export class TabelaPedidoAgendamentoComponent implements OnInit {
         if(res.ok){
           this.serviceRequests = res.body!
         }else{
-          //todo: show error to load service requests
+          this.toast.success('Ocorreu um erro ao carregar os pedidos!')
         }
       })
     }

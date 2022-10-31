@@ -3,6 +3,7 @@ import {ServiceRequest} from "../../model/ServiceRequest";
 import {User} from "../../model/User";
 import {WebService} from "../../web.service";
 import {Permission} from "../../model/Permission";
+import {PermissionServiceService} from "../../services/permission-service.service";
 
 @Component({
   selector: 'app-pedidos',
@@ -14,7 +15,7 @@ export class PedidosComponent implements OnInit {
   permission!: Permission
   serviceRequest?: ServiceRequest
 
-  constructor(private web: WebService) { }
+  constructor(private permissionWeb: PermissionServiceService) { }
 
   ngOnInit(): void {
     this.user.id = Number(sessionStorage.getItem('user.id')!)
@@ -23,7 +24,7 @@ export class PedidosComponent implements OnInit {
   }
 
   private fillUserPermissions() {
-    this.web.getUserPermissions(this.user.id!).subscribe((res) => {
+    this.permissionWeb.getUserPermissions(this.user.id!).subscribe((res) => {
       if (res.ok && res.body != null) {
         this.permission = res.body
       }

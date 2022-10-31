@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CompanyInvite} from "../../model/CompanyInvite";
 import {WebService} from "../../web.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-tabela-convites-empresa',
@@ -12,14 +13,16 @@ export class TabelaConvitesEmpresaComponent implements OnInit {
   invites: CompanyInvite[] = []
   @Input() company_id!: Number
 
-  constructor(private web: WebService) { }
+  constructor(private web: WebService, private toast: ToastrService) { }
 
   ngOnInit(): void {
     this.web.getOpeningInvitesForCompany(this.company_id).subscribe((res)=>{
-      if(res.ok && res.body && res.body!.length > 0){
-        this.invites = res.body
+      if(res.ok || res.status == 204){
+        if(res.body){
+          this.invites = res.body!
+        }
       }else{
-        //TODO: show error to user
+        this.toast.error('Ocorreu um erro ao carregar os convites!')
       }
     })
   }
@@ -29,9 +32,9 @@ export class TabelaConvitesEmpresaComponent implements OnInit {
       this.web.updateCompanyInvite(3, invite_id).subscribe((res)=>{
         if(res.ok){
           this.invites.splice(index.valueOf(), 1)
-          //TODO: show success to user
+          this.toast.error('Convite cancelado com sucesso!')
         }else{
-          //TODO: show error to user
+          this.toast.error('Ocorreu um erro ao cancelar o convite!')
         }
       })
     }

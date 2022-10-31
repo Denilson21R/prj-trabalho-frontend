@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {CompanyInvite} from "../../model/CompanyInvite";
 import {WebService} from "../../web.service";
+import {CompanyInviteServiceService} from "../../services/company-invite-service.service";
 
 @Component({
   selector: 'app-header',
@@ -15,7 +16,11 @@ export class HeaderComponent implements OnInit {
   userType!: String
   invites: CompanyInvite[] = []
 
-  constructor(private route: Router, private web: WebService) { }
+  constructor(
+    private route: Router,
+    private web: WebService,
+    private companyInviteWeb: CompanyInviteServiceService
+  ) { }
 
   ngOnInit(): void {
     this.userId = Number(sessionStorage.getItem('user.id')!)
@@ -25,7 +30,7 @@ export class HeaderComponent implements OnInit {
   }
 
   private getOpeningInviterForUser() {
-    this.web.getOpeningInvitesForUser(this.userId).subscribe((res) => {
+    this.companyInviteWeb.getOpeningInvitesForUser(this.userId).subscribe((res) => {
       if (res.ok) {
         this.invites = res.body!
       }

@@ -4,6 +4,7 @@ import {WebService} from "../../web.service";
 import {User} from "../../model/User";
 import {Permission} from "../../model/Permission";
 import {HttpResponse} from "@angular/common/http";
+import {PermissionServiceService} from "../../services/permission-service.service";
 
 @Component({
   selector: 'app-servicos',
@@ -17,11 +18,14 @@ export class ServicoComponent implements OnInit {
   permission?: Permission
   serviceUpdate?: Service
 
-  constructor(private web: WebService) { }
+  constructor(
+    private web: WebService,
+    private permissionWeb: PermissionServiceService
+  ) { }
 
   ngOnInit(): void {
     this.user.id = Number(sessionStorage.getItem('user.id')!);
-    this.web.getUserPermissions(this.user.id).subscribe((res) => {
+    this.permissionWeb.getUserPermissions(this.user.id).subscribe((res) => {
       if(res.ok && res.body != null){
         this.fillServicesForUser(res.body);
       }

@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CompanyInvite} from "../../model/CompanyInvite";
 import {WebService} from "../../web.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-tabela-convites-usuario',
@@ -12,7 +13,7 @@ export class TabelaConvitesUsuarioComponent implements OnInit {
   @Input() invites!: CompanyInvite[]
   @Output() emitNewCompany = new EventEmitter<Number>();
 
-  constructor(private web: WebService) { }
+  constructor(private web: WebService, private toast: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -24,10 +25,11 @@ export class TabelaConvitesUsuarioComponent implements OnInit {
           this.invites.splice(index.valueOf(), 1)
           if(status == 1){
             this.emitNewCompany.emit(company_id);
+          }else{
+            this.toast.success('Convite respondido com sucesso!')
           }
-          //TODO: show success to user
         }else{
-          //TODO: show error to user
+          this.toast.success('Ocorreu um erro ao responder o convite!')
         }
       })
     }

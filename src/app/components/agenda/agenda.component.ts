@@ -3,6 +3,7 @@ import {WebService} from "../../web.service";
 import {User} from "../../model/User";
 import {Schedule} from "../../model/Schedule";
 import {Permission} from "../../model/Permission";
+import {PermissionServiceService} from "../../services/permission-service.service";
 
 @Component({
   selector: 'app-agenda',
@@ -15,7 +16,10 @@ export class AgendaComponent implements OnInit {
   schedules!: Schedule[]
   permission!: Permission
 
-  constructor(private web: WebService) { }
+  constructor(
+    private web: WebService,
+    private permissionWeb: PermissionServiceService
+  ) { }
 
   ngOnInit(): void {
     this.user.id = Number(sessionStorage.getItem('user.id')!);
@@ -40,7 +44,7 @@ export class AgendaComponent implements OnInit {
   }
 
   private fillSchedulesForEmployee() {
-    this.web.getUserPermissions(this.user.id!).subscribe((res) => {
+    this.permissionWeb.getUserPermissions(this.user.id!).subscribe((res) => {
       if (res.ok && res.body != null) {
         this.permission = res.body
         this.web.getSchedulesByCompany(res.body.company.id!).subscribe((result) => {

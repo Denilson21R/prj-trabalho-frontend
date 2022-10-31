@@ -1,6 +1,7 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {WebService} from "../../web.service";
 import {Company} from "../../model/Company";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-modal-convidar-usuario',
@@ -13,7 +14,7 @@ export class ModalConvidarUsuarioComponent implements OnInit {
   @Input() company!: Number
   @ViewChild('btnCancelar') closeModal!: ElementRef
 
-  constructor(private web: WebService) { }
+  constructor(private web: WebService, private toast: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -23,16 +24,14 @@ export class ModalConvidarUsuarioComponent implements OnInit {
       this.web.addInviteToUserByEmail(this.emailUsuario, this.company).subscribe((res) => {
         if(res.status == 201){
           this.emailUsuario = ""
-          //TODO: emit new invite
+          this.toast.success('Usuário convidado com sucesso!')
         }else if(res.status == 404){
-          //TODO: usuario nao encontrado
+          this.toast.error('Usuário não encontrado!')
         }else{
-          //TODO: ocorreu um erro
+          this.toast.error('Ocorreu um erro ao convidar um usuário!')
         }
       })
-    }else{
-      //TODO:show error
+      this.closeModal.nativeElement.click()
     }
-    this.closeModal.nativeElement.click()
   }
 }

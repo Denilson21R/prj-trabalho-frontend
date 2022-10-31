@@ -4,6 +4,8 @@ import {WebService} from "../../web.service";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {User} from "../../model/User";
+import {ToastrService} from "ngx-toastr";
+import {PermissionServiceService} from "../../services/permission-service.service";
 
 @Component({
   selector: 'app-empresa',
@@ -17,7 +19,12 @@ export class EmpresaComponent implements OnInit {
   employees: User[] = []
   userSeePermission?: User
 
-  constructor(private web: WebService, private router: Router) { }
+  constructor(
+    private web: WebService,
+    private permissionWeb: PermissionServiceService,
+    private router: Router,
+    private toast: ToastrService
+  ) { }
 
   ngOnInit(): void {
     this.fillUserBySession();
@@ -42,7 +49,7 @@ export class EmpresaComponent implements OnInit {
   }
 
   private fillUserPermissions() {
-    this.web.getUserPermissions(this.user.id!).subscribe((res) => {
+    this.permissionWeb.getUserPermissions(this.user.id!).subscribe((res) => {
       if (res.ok && res.body != null) {
         this.permission = res.body
         this.verifyUserCanSeeCompany();
@@ -68,9 +75,9 @@ export class EmpresaComponent implements OnInit {
   updateCompany() {
     this.web.updateCompany(this.permission.company).subscribe((res)=>{
       if(res.ok){
-        //TODO: show success
+        this.toast.success('Dados atualizados com sucesso!')
       }else{
-        //TODO: show error
+        this.toast.error('Ocorreu um erro ao atualizar os dados!')
       }
     })
   }

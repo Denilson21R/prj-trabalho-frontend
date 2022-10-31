@@ -1,28 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { WebService } from '../../web.service';
 import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
+import {UserServiceService} from "../../services/user-service.service";
 
 @Component({
   selector: 'app-cadastro',
   templateUrl: './cadastro.component.html',
   styleUrls: ['./cadastro.component.css']
 })
+
 export class CadastroComponent implements OnInit {
 
-  constructor(private web: WebService, private router: Router) { }
+  constructor(
+    private userWeb: UserServiceService,
+    private router: Router,
+    private toast: ToastrService
+  ) { }
 
   ngOnInit(): void {
   }
 
   cadastrar(form: NgForm) {
     if(form.valid){
-      this.web.signUpUser(form.value).subscribe(res => {
+      this.userWeb.signUpUser(form.value).subscribe(res => {
         this.router.navigate(['login'])
         //TODO: campo repita a senha no formulario de cadastro
       })
     }else{
-      //TODO: exibir erro para o usuário
+      this.toast.error('Ocorreu um erro durante o cadastro!')
     }
   }
 }

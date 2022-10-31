@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@an
 import {Service} from "../../model/Service";
 import {Company} from "../../model/Company";
 import {WebService} from "../../web.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-modal-salvar-servico',
@@ -14,7 +15,7 @@ export class ModalSalvarServicoComponent implements OnInit {
   @Input() serviceUpdate?: Service
   @Output() emitReload = new EventEmitter<boolean>();
 
-  constructor(private web: WebService) { }
+  constructor(private web: WebService, private toast: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -30,25 +31,32 @@ export class ModalSalvarServicoComponent implements OnInit {
   saveService() {
     this.fillBasicDataOfService();
     if(this.serviceUpdate){
-      this.web.updateService(this.service).subscribe((res)=>{
-        if(res.ok){
-          //TODO: show success
-        }else{
-          //TODO: show error
-        }
-        this.emitReload.emit(true)
-      })
-
+      this.updateService();
     }else{
-      this.web.addService(this.service).subscribe((res)=>{
-        if(res.ok){
-          //TODO: show success
-        }else{
-          //TODO: show error
-        }
-        this.emitReload.emit(true)
-      })
+      this.createService();
     }
+  }
+
+  private createService() {
+    this.web.addService(this.service).subscribe((res) => {
+      if (res.ok) {
+        this.toast.success('Serviço criado com sucesso!')
+      } else {
+        this.toast.error('Ocorreu um erro ao criar o serviço!')
+      }
+      this.emitReload.emit(true)
+    })
+  }
+
+  private updateService() {
+    this.web.updateService(this.service).subscribe((res) => {
+      if (res.ok) {
+        this.toast.success('Serviço atualizado com sucesso!')
+      } else {
+        this.toast.error('Ocorreu um erro ao salvar o serviço!')
+      }
+      this.emitReload.emit(true)
+    })
   }
 
   private fillBasicDataOfService() {

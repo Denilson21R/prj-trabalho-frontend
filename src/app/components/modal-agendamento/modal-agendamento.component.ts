@@ -7,6 +7,7 @@ import {Service} from "../../model/Service";
 import {NgForm} from "@angular/forms";
 import {HttpResponse} from "@angular/common/http";
 import {ServiceRequest} from "../../model/ServiceRequest";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-modal-agendamento',
@@ -28,7 +29,7 @@ export class ModalAgendamentoComponent implements OnInit {
   totalValue?: number
   dateToday: string = new Date().toISOString().slice(0, 16);
 
-  constructor(private web: WebService) { }
+  constructor(private web: WebService, private toast: ToastrService) { }
 
   ngOnInit(): void {
     this.getInitialData();
@@ -68,6 +69,8 @@ export class ModalAgendamentoComponent implements OnInit {
     this.web.addScheduleRequest(Number(this.animalSelected), scheduleForm.value.companies, this.user.id!, scheduleForm.value.date).subscribe((res) => {
       if (res.ok && res.body?.id) {
         this.fillServicesOfServiceRequest(finalServicesArray, res);
+      }else{
+        this.toast.error('Ocorreu um erro ao salvar o pedido!')
       }
     })
   }
@@ -83,9 +86,9 @@ export class ModalAgendamentoComponent implements OnInit {
   private fillServicesOfServiceRequest(finalServicesArray: String[], res: HttpResponse<ServiceRequest>) {
     this.web.setServicesOfServiceRequest(finalServicesArray, res.body?.id!).subscribe((response) => {
       if (res.ok) {
-        //TODO: show success
+        this.toast.success('Pedido salvo com sucesso!')
       } else {
-        //TODO: show error
+        this.toast.error('Ocorreu um erro salvar os serviços do pedido!')
       }
       this.btnCancelar.nativeElement.click()
     })

@@ -5,6 +5,8 @@ import {User} from "../../model/User";
 import {Permission} from "../../model/Permission";
 import {HttpResponse} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
+import {PermissionServiceService} from "../../services/permission-service.service";
 
 @Component({
   selector: 'app-modal-criar-empresa',
@@ -15,7 +17,12 @@ export class ModalCriarEmpresaComponent implements OnInit {
   company: Company = new Company()
   @ViewChild("btnCancelar") btnCancelar!: ElementRef<HTMLElement>
 
-  constructor(private web: WebService, private router: Router) { }
+  constructor(
+    private web: WebService,
+    private router: Router,
+    private toast: ToastrService,
+    private permissionWeb: PermissionServiceService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -25,15 +32,15 @@ export class ModalCriarEmpresaComponent implements OnInit {
     this.web.addCompany(this.company).subscribe((res)=>{
       if(res.ok){
         let permission = this.fillPermissionData(res);
-        this.web.addPermission(permission).subscribe((response)=>{
+        this.permissionWeb.addPermission(permission).subscribe((response)=>{
           if(response.ok){
             this.router.navigate(["/empresa"])
           }else{
-            //TODO: show error
+            this.toast.error('Ocorreu um erro ao salvar a empresa!')
           }
         })
       }else{
-        //TODO: show error
+        this.toast.error('Ocorreu um erro ao salvar a empresa!')
       }
       this.btnCancelar.nativeElement.click()
     })

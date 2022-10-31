@@ -32,6 +32,8 @@ import { ModalVisualizarAgendamentoComponent } from './components/modal-visualiz
 import { ModalEditarAgendamentoComponent } from './components/modal-editar-agendamento/modal-editar-agendamento.component';
 import { PedidosComponent } from './components/pedidos/pedidos.component';
 import { ContadoresDadosComponent } from './components/contadores-dados/contadores-dados.component';
+import {ToastrModule} from "ngx-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -69,7 +71,13 @@ import { ContadoresDadosComponent } from './components/contadores-dados/contador
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      closeButton: true,
+      timeOut: 10000, // 15 seconds
+      progressBar: true,
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

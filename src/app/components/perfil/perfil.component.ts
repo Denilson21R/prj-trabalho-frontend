@@ -4,6 +4,10 @@ import {WebService} from "../../web.service";
 import {Permission} from "../../model/Permission";
 import {CompanyInvite} from "../../model/CompanyInvite";
 import {Company} from "../../model/Company";
+import {ToastrService} from "ngx-toastr";
+import {UserServiceService} from "../../services/user-service.service";
+import {PermissionServiceService} from "../../services/permission-service.service";
+import {CompanyInviteServiceService} from "../../services/company-invite-service.service";
 
 @Component({
   selector: 'app-perfil',
@@ -17,7 +21,12 @@ export class PerfilComponent implements OnInit {
   permission!: Permission
   invites!: CompanyInvite[]
 
-  constructor(private web: WebService) { }
+  constructor(
+    private companyInviteWeb: CompanyInviteServiceService,
+    private permissionWeb: PermissionServiceService,
+    private userWeb: UserServiceService,
+    private toast: ToastrService
+  ) { }
 
   ngOnInit(): void {
     this.fillUserBySession();
@@ -33,18 +42,17 @@ export class PerfilComponent implements OnInit {
   }
 
   updatePerfil() {
-    this.web.updateUser(this.user).subscribe((res) => {
+    this.userWeb.updateUser(this.user).subscribe((res) => {
       if(res.ok){
-        //TODO: show success to user
-        //TODO: update session
+        this.toast.success('Dados atualizados com sucesso!')
       }else{
-        //TODO: show error to user
+        this.toast.error('Ocorreu um erro ao atualizar os dados!')
       }
     })
   }
 
   private fillUserPermissions() {
-    this.web.getUserPermissions(this.user.id!).subscribe((res) => {
+    this.permissionWeb.getUserPermissions(this.user.id!).subscribe((res) => {
       if (res.ok && res.body != null) {
         this.permission = res.body
       }
@@ -55,7 +63,7 @@ export class PerfilComponent implements OnInit {
   }
 
   private getOpeningInviterForUser() {
-    this.web.getOpeningInvitesForUser(this.user.id!).subscribe((res) => {
+    this.companyInviteWeb.getOpeningInvitesForUser(this.user.id!).subscribe((res) => {
       if (res.ok) {
         this.invites = res.body!
       }
@@ -67,11 +75,11 @@ export class PerfilComponent implements OnInit {
       let newCompany = new Company()
       newCompany.id = value
       this.permission = new Permission(this.user, newCompany, false, false, false)
-      this.web.addPermission(this.permission).subscribe((res)=> {
+      this.permissionWeb.addPermission(this.permission).subscribe((res)=> {
         if(res.ok){
-          //TODO: show success
+          this.toast.success('Convite aceito com sucesso!')
         }else{
-          //TODO: show error
+          this.toast.error('Ocorreu um erro ao aceitar o convite!')
         }
       })
     }
