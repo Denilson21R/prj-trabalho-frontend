@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ServiceRequest} from "../../model/ServiceRequest";
 import {User} from "../../model/User";
-import {WebService} from "../../web.service";
 import {Permission} from "../../model/Permission";
 import {PermissionServiceService} from "../../services/permission-service.service";
 

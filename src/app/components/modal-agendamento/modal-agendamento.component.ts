@@ -1,6 +1,5 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Company} from "../../model/Company";
-import {WebService} from "../../web.service";
 import {Animal} from "../../model/Animal";
 import {User} from "../../model/User";
 import {Service} from "../../model/Service";
@@ -8,6 +7,10 @@ import {NgForm} from "@angular/forms";
 import {HttpResponse} from "@angular/common/http";
 import {ServiceRequest} from "../../model/ServiceRequest";
 import {ToastrService} from "ngx-toastr";
+import {AnimalServiceService} from "../../services/animal-service.service";
+import {ServiceServiceService} from "../../services/service-service.service";
+import {CompanyServiceService} from "../../services/company-service.service";
+import {ServiceRequestServiceService} from "../../services/service-request-service.service";
 
 @Component({
   selector: 'app-modal-agendamento',
@@ -29,18 +32,24 @@ export class ModalAgendamentoComponent implements OnInit {
   totalValue?: number
   dateToday: string = new Date().toISOString().slice(0, 16);
 
-  constructor(private web: WebService, private toast: ToastrService) { }
+  constructor(
+    private animalWeb: AnimalServiceService,
+    private serviceWeb: ServiceServiceService,
+    private companyWeb: CompanyServiceService,
+    private serviceRequestWeb: ServiceRequestServiceService,
+    private toast: ToastrService
+  ) { }
 
   ngOnInit(): void {
     this.getInitialData();
   }
 
   private getInitialData() {
-    this.web.getAllCompanies().subscribe((res) => {
+    this.companyWeb.getAllCompanies().subscribe((res) => {
       if (res.ok) {
         this.companies = res.body!
       }
-      this.web.getUserAnimals(this.user.id!).subscribe((response)=>{
+      this.animalWeb.getUserAnimals(this.user.id!).subscribe((response)=>{
         if(response.ok){
           this.animals = response.body!
         }
@@ -50,7 +59,7 @@ export class ModalAgendamentoComponent implements OnInit {
 
   getServicesByCompany() {
     this.services = []
-    this.web.getServicesByCompany(Number(this.companySelected)).subscribe((res)=>{
+    this.serviceWeb.getServicesByCompany(Number(this.companySelected)).subscribe((res)=>{
       if(res.ok){
         this.services = res.body!
       }
@@ -66,7 +75,7 @@ export class ModalAgendamentoComponent implements OnInit {
   }
 
   private addScheduleRequest(scheduleForm: NgForm, finalServicesArray: String[]) {
-    this.web.addScheduleRequest(Number(this.animalSelected), scheduleForm.value.companies, this.user.id!, scheduleForm.value.date).subscribe((res) => {
+    this.serviceRequestWeb.addScheduleRequest(Number(this.animalSelected), scheduleForm.value.companies, this.user.id!, scheduleForm.value.date).subscribe((res) => {
       if (res.ok && res.body?.id) {
         this.fillServicesOfServiceRequest(finalServicesArray, res);
       }else{
@@ -84,7 +93,7 @@ export class ModalAgendamentoComponent implements OnInit {
   }
 
   private fillServicesOfServiceRequest(finalServicesArray: String[], res: HttpResponse<ServiceRequest>) {
-    this.web.setServicesOfServiceRequest(finalServicesArray, res.body?.id!).subscribe((response) => {
+    this.serviceRequestWeb.setServicesOfServiceRequest(finalServicesArray, res.body?.id!).subscribe((res) => {
       if (res.ok) {
         this.toast.success('Pedido salvo com sucesso!')
       } else {

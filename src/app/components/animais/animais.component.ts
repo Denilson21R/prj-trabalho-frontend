@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Animal} from "../../model/Animal";
-import {WebService} from "../../web.service";
+import {AnimalServiceService} from "../../services/animal-service.service";
 
 @Component({
   selector: 'app-animais',
@@ -13,7 +13,7 @@ export class AnimaisComponent implements OnInit {
   animals: Animal[] = [];
   animalUpdate?: Animal
 
-  constructor(private web: WebService) { }
+  constructor(private animalWeb: AnimalServiceService) { }
 
   ngOnInit(): void {
     this.user_id = Number(sessionStorage.getItem('user.id'))
@@ -21,7 +21,7 @@ export class AnimaisComponent implements OnInit {
   }
 
   private loadAnimals() {
-    this.web.getUserAnimals(this.user_id).subscribe((res) => {
+    this.animalWeb.getUserAnimals(this.user_id).subscribe((res) => {
       if (res.ok) {
         this.animals = res.body!
       }

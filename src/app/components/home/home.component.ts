@@ -1,9 +1,5 @@
-import { User } from '../../model/User';
 import { Component, OnInit } from '@angular/core';
 import {Permission} from "../../model/Permission";
-import {WebService} from "../../web.service";
-import {CompanyInvite} from "../../model/CompanyInvite";
-import {ServiceRequest} from "../../model/ServiceRequest";
 import {PermissionServiceService} from "../../services/permission-service.service";
 
 @Component({
@@ -15,7 +11,6 @@ export class HomeComponent implements OnInit {
 
   user: any
   permission!: Permission
-  serviceRequest?: ServiceRequest
   permissionFinded = false
 
   constructor(
@@ -46,9 +41,5 @@ export class HomeComponent implements OnInit {
       }
       this.permissionFinded = true
     })
-  }
-
-  setRequestSee(request: ServiceRequest) {
-    this.serviceRequest = request
   }
 }

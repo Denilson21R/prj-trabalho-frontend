@@ -1,7 +1,6 @@
 import {Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {Permission} from "../../model/Permission";
 import {User} from "../../model/User";
-import {WebService} from "../../web.service";
 import {ToastrService} from "ngx-toastr";
 import {PermissionServiceService} from "../../services/permission-service.service";
 

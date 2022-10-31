@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Service} from "../../model/Service";
-import {WebService} from "../../web.service";
 import {User} from "../../model/User";
 import {Permission} from "../../model/Permission";
-import {HttpResponse} from "@angular/common/http";
 import {PermissionServiceService} from "../../services/permission-service.service";
+import {ServiceServiceService} from "../../services/service-service.service";
 
 @Component({
   selector: 'app-servicos',
@@ -19,8 +18,8 @@ export class ServicoComponent implements OnInit {
   serviceUpdate?: Service
 
   constructor(
-    private web: WebService,
-    private permissionWeb: PermissionServiceService
+    private permissionWeb: PermissionServiceService,
+    private serviceWeb: ServiceServiceService
   ) { }
 
   ngOnInit(): void {
@@ -35,7 +34,7 @@ export class ServicoComponent implements OnInit {
 
   private fillServicesForUser(res: Permission) {
     this.permission = res
-    this.web.getServicesByCompany(this.permission!.company.id!).subscribe((result) => {
+    this.serviceWeb.getServicesByCompany(this.permission!.company.id!).subscribe((result) => {
       if (result.ok) {
         this.services = result.body!
       }

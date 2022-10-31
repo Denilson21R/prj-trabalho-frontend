@@ -1,7 +1,6 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {WebService} from "../../web.service";
-import {Company} from "../../model/Company";
 import {ToastrService} from "ngx-toastr";
+import {CompanyInviteServiceService} from "../../services/company-invite-service.service";
 
 @Component({
   selector: 'app-modal-convidar-usuario',
@@ -14,14 +13,17 @@ export class ModalConvidarUsuarioComponent implements OnInit {
   @Input() company!: Number
   @ViewChild('btnCancelar') closeModal!: ElementRef
 
-  constructor(private web: WebService, private toast: ToastrService) { }
+  constructor(
+    private companyInviteWeb: CompanyInviteServiceService,
+    private toast: ToastrService
+  ) { }
 
   ngOnInit(): void {
   }
 
   convidar() {
     if(this.emailUsuario != "" && this.emailUsuario != sessionStorage.getItem('user.email')){
-      this.web.addInviteToUserByEmail(this.emailUsuario, this.company).subscribe((res) => {
+      this.companyInviteWeb.addInviteToUserByEmail(this.emailUsuario, this.company).subscribe((res) => {
         if(res.status == 201){
           this.emailUsuario = ""
           this.toast.success('Usuário convidado com sucesso!')

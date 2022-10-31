@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {User} from "../model/User";
+import {globalConstants} from "../globalConstants";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserServiceService {
-  baseURL = "http://localhost:8080"
+  baseURL = globalConstants.backendURL
 
   constructor(private http: HttpClient) { }
 
@@ -37,5 +38,9 @@ export class UserServiceService {
       userAuthenticate = userAuthenticate.set("password", String(user.password));
     }
     return this.http.put(this.baseURL + "/user/" + user.id!, userAuthenticate, {observe: "response"})
+  }
+
+  getEmployeesByCompany(id_company: Number){
+    return this.http.get<User[]>(this.baseURL + "/company/" + id_company + "/users", {observe: "response"})
   }
 }

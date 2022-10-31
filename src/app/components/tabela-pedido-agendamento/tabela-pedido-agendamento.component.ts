@@ -2,8 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {User} from "../../model/User";
 import {Permission} from "../../model/Permission";
 import {ServiceRequest} from "../../model/ServiceRequest";
-import {WebService} from "../../web.service";
 import {ToastrService} from "ngx-toastr";
+import {ServiceRequestServiceService} from "../../services/service-request-service.service";
 
 @Component({
   selector: 'app-tabela-pedido-agendamento',
@@ -17,11 +17,14 @@ export class TabelaPedidoAgendamentoComponent implements OnInit {
   @Input() requestSelected?: ServiceRequest
   serviceRequests: ServiceRequest[] = []
 
-  constructor(private web: WebService, private toast: ToastrService) { }
+  constructor(
+    private serviceRequestWeb: ServiceRequestServiceService,
+    private toast: ToastrService
+  ) { }
 
   ngOnInit(): void {
     if(this.user.type == 'EMPLOYEE'){
-      this.web.getServiceRequestsByCompany(this.permission.company.id!).subscribe((res)=>{
+      this.serviceRequestWeb.getServiceRequestsByCompany(this.permission.company.id!).subscribe((res)=>{
         if(res.ok){
           this.serviceRequests = res.body!
         }else{
@@ -29,7 +32,7 @@ export class TabelaPedidoAgendamentoComponent implements OnInit {
         }
       })
     }else if(this.user.type == 'CLIENT'){
-      this.web.getServiceRequestsByUser(this.user.id!).subscribe((res)=>{
+      this.serviceRequestWeb.getServiceRequestsByUser(this.user.id!).subscribe((res)=>{
         if(res.ok){
           this.serviceRequests = res.body!
         }else{

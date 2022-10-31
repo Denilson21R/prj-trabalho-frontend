@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from "../../model/User";
-import {WebService} from "../../web.service";
 import {Permission} from "../../model/Permission";
 import {CompanyInvite} from "../../model/CompanyInvite";
 import {Company} from "../../model/Company";

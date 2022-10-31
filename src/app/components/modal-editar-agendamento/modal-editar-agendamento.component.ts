@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Schedule} from "../../model/Schedule";
-import {WebService} from "../../web.service";
 import {ToastrService} from "ngx-toastr";
+import {ScheduleServiceService} from "../../services/schedule-service.service";
 
 @Component({
   selector: 'app-modal-editar-agendamento',
@@ -11,14 +11,17 @@ import {ToastrService} from "ngx-toastr";
 export class ModalEditarAgendamentoComponent implements OnInit {
   @Input() schedule!: Schedule
 
-  constructor(private web: WebService, private toast: ToastrService) { }
+  constructor(
+    private scheduleWeb: ScheduleServiceService,
+    private toast: ToastrService
+  ) { }
 
   ngOnInit(): void {
   }
 
   saveSchedule() {
     if(this.schedule){
-      this.web.updateSchedule(this.schedule).subscribe((res)=>{
+      this.scheduleWeb.updateSchedule(this.schedule).subscribe((res)=>{
         if(res.ok){
           this.toast.success('Agendamento atualizado com sucesso!')
         }else{

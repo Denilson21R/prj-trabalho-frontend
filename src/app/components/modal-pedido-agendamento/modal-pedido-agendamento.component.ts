@@ -1,10 +1,11 @@
 import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import {ServiceRequest} from "../../model/ServiceRequest";
-import {WebService} from "../../web.service";
 import {Schedule} from "../../model/Schedule";
 import {User} from "../../model/User";
 import {HttpResponse} from "@angular/common/http";
 import {ToastrService} from "ngx-toastr";
+import {ServiceRequestServiceService} from "../../services/service-request-service.service";
+import {ScheduleServiceService} from "../../services/schedule-service.service";
 
 @Component({
   selector: 'app-modal-pedido-agendamento',
@@ -16,7 +17,11 @@ export class ModalPedidoAgendamentoComponent implements OnInit {
   totalValue: number = 0;
   user: User = new User()
 
-  constructor(private web: WebService, private toast: ToastrService) { }
+  constructor(
+    private serviceRequestWeb: ServiceRequestServiceService,
+    private scheduleWeb: ScheduleServiceService,
+    private toast: ToastrService
+  ) { }
 
   ngOnInit(): void {
     this.user.type = sessionStorage.getItem('user.type')!
@@ -48,13 +53,13 @@ export class ModalPedidoAgendamentoComponent implements OnInit {
   }
 
   private updateServiceRequest() {
-    this.web.updateServiceRequest(this.requestSelected!).subscribe((res) => {
+    this.serviceRequestWeb.updateServiceRequest(this.requestSelected!).subscribe((res) => {
       if (res.ok) {
         this.requestSelected!.status = res.body!.status!
         if(res.body?.status == "ACEITO"){
           let schedule: Schedule = new Schedule()
           this.fillSchedule(schedule, res);
-          this.web.addSchedule(schedule).subscribe((response)=>{
+          this.scheduleWeb.addSchedule(schedule).subscribe((response)=>{
             if(response.ok){
               this.toast.success('Agendamento criado com sucesso!')
             }else{

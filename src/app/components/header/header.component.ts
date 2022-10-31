@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {CompanyInvite} from "../../model/CompanyInvite";
-import {WebService} from "../../web.service";
 import {CompanyInviteServiceService} from "../../services/company-invite-service.service";
 
 @Component({
@@ -18,7 +17,6 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private route: Router,
-    private web: WebService,
     private companyInviteWeb: CompanyInviteServiceService
   ) { }
 

@@ -1,11 +1,11 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Permission} from "../../model/Permission";
-import {WebService} from "../../web.service";
 import {Router} from "@angular/router";
-import {Observable} from "rxjs";
 import {User} from "../../model/User";
 import {ToastrService} from "ngx-toastr";
 import {PermissionServiceService} from "../../services/permission-service.service";
+import {UserServiceService} from "../../services/user-service.service";
+import {CompanyServiceService} from "../../services/company-service.service";
 
 @Component({
   selector: 'app-empresa',
@@ -20,8 +20,9 @@ export class EmpresaComponent implements OnInit {
   userSeePermission?: User
 
   constructor(
-    private web: WebService,
+    private companyWeb: CompanyServiceService,
     private permissionWeb: PermissionServiceService,
+    private userWeb: UserServiceService,
     private router: Router,
     private toast: ToastrService
   ) { }
@@ -32,7 +33,7 @@ export class EmpresaComponent implements OnInit {
   }
 
   private fillEmployeesByCompany() {
-    this.web.getEmployeesByCompany(this.permission.company.id!).subscribe((res) => {
+    this.userWeb.getEmployeesByCompany(this.permission.company.id!).subscribe((res) => {
       if (res.ok && res.body != null && res.body.length > 0) {
         this.employees = res.body
       }
@@ -73,7 +74,7 @@ export class EmpresaComponent implements OnInit {
   }
 
   updateCompany() {
-    this.web.updateCompany(this.permission.company).subscribe((res)=>{
+    this.companyWeb.updateCompany(this.permission.company).subscribe((res)=>{
       if(res.ok){
         this.toast.success('Dados atualizados com sucesso!')
       }else{

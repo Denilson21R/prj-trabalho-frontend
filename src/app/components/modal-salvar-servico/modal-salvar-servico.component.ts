@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Service} from "../../model/Service";
 import {Company} from "../../model/Company";
-import {WebService} from "../../web.service";
 import {ToastrService} from "ngx-toastr";
+import {ServiceServiceService} from "../../services/service-service.service";
 
 @Component({
   selector: 'app-modal-salvar-servico',
@@ -15,7 +15,10 @@ export class ModalSalvarServicoComponent implements OnInit {
   @Input() serviceUpdate?: Service
   @Output() emitReload = new EventEmitter<boolean>();
 
-  constructor(private web: WebService, private toast: ToastrService) { }
+  constructor(
+    private serviceWeb: ServiceServiceService,
+    private toast: ToastrService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -38,7 +41,7 @@ export class ModalSalvarServicoComponent implements OnInit {
   }
 
   private createService() {
-    this.web.addService(this.service).subscribe((res) => {
+    this.serviceWeb.addService(this.service).subscribe((res) => {
       if (res.ok) {
         this.toast.success('Serviço criado com sucesso!')
       } else {
@@ -49,7 +52,7 @@ export class ModalSalvarServicoComponent implements OnInit {
   }
 
   private updateService() {
-    this.web.updateService(this.service).subscribe((res) => {
+    this.serviceWeb.updateService(this.service).subscribe((res) => {
       if (res.ok) {
         this.toast.success('Serviço atualizado com sucesso!')
       } else {

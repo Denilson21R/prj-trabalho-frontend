@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import {Permission} from "../../model/Permission";
-import {WebService} from "../../web.service";
+import {ScheduleServiceService} from "../../services/schedule-service.service";
+import {ServiceServiceService} from "../../services/service-service.service";
 
 @Component({
   selector: 'app-contadores-dados',
@@ -13,7 +14,10 @@ export class ContadoresDadosComponent implements OnInit {
   qtddServices?: Number
   qtddSchedules?: Number
 
-  constructor(private web: WebService) { }
+  constructor(
+    private scheduleWeb: ScheduleServiceService,
+    private serviceWeb: ServiceServiceService
+  ) { }
 
   ngOnInit(): void {
     if(this.user.type == "CLIENT"){
@@ -24,10 +28,10 @@ export class ContadoresDadosComponent implements OnInit {
   }
 
   private fillServicesAndSchedulesForClient() {
-    this.web.getQtddSchedulesClient(this.user.id).subscribe((res) => {
+    this.scheduleWeb.getQtddSchedulesClient(this.user.id).subscribe((res) => {
       if (res.ok) {
         this.qtddSchedules = res.body!
-        this.web.getQtddServicesClient(this.user.id).subscribe((response) => {
+        this.serviceWeb.getQtddServicesClient(this.user.id).subscribe((response) => {
           this.qtddServices = response.body!
         })
       }
@@ -35,10 +39,10 @@ export class ContadoresDadosComponent implements OnInit {
   }
 
   private fillServicesAndScheduleForEmployee() {
-    this.web.getQtddSchedulesCompany(this.permission!.company.id!).subscribe((res) => {
+    this.scheduleWeb.getQtddSchedulesCompany(this.permission!.company.id!).subscribe((res) => {
       if (res.ok) {
         this.qtddSchedules = res.body!
-        this.web.getQtddServicesCompany(this.permission?.company.id!).subscribe((response) => {
+        this.serviceWeb.getQtddServicesCompany(this.permission?.company.id!).subscribe((response) => {
           this.qtddServices = response.body!
         })
       }

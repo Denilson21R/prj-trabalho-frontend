@@ -1,12 +1,12 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Company} from "../../model/Company";
-import {WebService} from "../../web.service";
 import {User} from "../../model/User";
 import {Permission} from "../../model/Permission";
 import {HttpResponse} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {PermissionServiceService} from "../../services/permission-service.service";
+import {CompanyServiceService} from "../../services/company-service.service";
 
 @Component({
   selector: 'app-modal-criar-empresa',
@@ -18,7 +18,7 @@ export class ModalCriarEmpresaComponent implements OnInit {
   @ViewChild("btnCancelar") btnCancelar!: ElementRef<HTMLElement>
 
   constructor(
-    private web: WebService,
+    private companyWeb: CompanyServiceService,
     private router: Router,
     private toast: ToastrService,
     private permissionWeb: PermissionServiceService
@@ -29,7 +29,7 @@ export class ModalCriarEmpresaComponent implements OnInit {
 
   saveCompany() {
     this.fillBasicDataForCompany();
-    this.web.addCompany(this.company).subscribe((res)=>{
+    this.companyWeb.addCompany(this.company).subscribe((res)=>{
       if(res.ok){
         let permission = this.fillPermissionData(res);
         this.permissionWeb.addPermission(permission).subscribe((response)=>{
