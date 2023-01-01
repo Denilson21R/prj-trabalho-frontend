@@ -25,7 +25,7 @@ export class ModalAgendamentoComponent implements OnInit {
   @ViewChild("btnCancelar") btnCancelar!: ElementRef<HTMLElement>
 
   companies?: Company[]
-  animals?: Animal[]
+  animals: Animal[] = []
   services?: Service[]
   servicesSelected: String[] = [];
   date!: Date;
@@ -51,7 +51,11 @@ export class ModalAgendamentoComponent implements OnInit {
       }
       this.animalWeb.getUserAnimals(this.user.id!).subscribe((response)=>{
         if(response.ok){
-          this.animals = response.body!
+          response.body!.forEach((animal)=>{
+            if(animal.status == "ATIVO"){
+              this.animals?.push(animal)
+            }
+          })
         }
       })
     })
@@ -61,7 +65,11 @@ export class ModalAgendamentoComponent implements OnInit {
     this.services = []
     this.serviceWeb.getServicesByCompany(Number(this.companySelected)).subscribe((res)=>{
       if(res.ok){
-        this.services = res.body!
+        res.body!.forEach((service)=>{
+          if (service.status == "ATIVO"){
+            this.services?.push(service)
+          }
+        })
       }
     })
   }

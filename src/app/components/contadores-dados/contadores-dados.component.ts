@@ -11,8 +11,8 @@ import {ServiceServiceService} from "../../services/service-service.service";
 export class ContadoresDadosComponent implements OnInit {
   @Input() user: any
   @Input() permission?: Permission
-  qtddServices?: Number
-  qtddSchedules?: Number
+  qtddServices: Number = 0
+  qtddSchedules: Number = 0
 
   constructor(
     private scheduleWeb: ScheduleServiceService,

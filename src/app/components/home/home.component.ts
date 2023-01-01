@@ -35,11 +35,13 @@ export class HomeComponent implements OnInit {
   }
 
   private fillUserPermissions() {
-    this.permissionWeb.getUserPermissions(this.user.id!).subscribe((res) => {
-      if (res.ok && res.body != null) {
-        this.permission = res.body
-      }
-      this.permissionFinded = true
-    })
+    if(this.user.type == "EMPLOYEE"){
+      this.permissionWeb.getUserPermissions(this.user.id!).subscribe((res) => {
+        if (res.ok && res.body != null) {
+          this.permission = res.body
+        }
+        this.permissionFinded = true
+      })
+    }
   }
 }

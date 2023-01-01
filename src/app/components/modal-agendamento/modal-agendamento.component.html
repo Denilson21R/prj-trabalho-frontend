@@ -3,7 +3,7 @@
     <div class="modal-content">
       <form #scheduleForm="ngForm" (ngSubmit)="saveSchedule(scheduleForm)">
         <div class="modal-header">
-          <h5 class="modal-title">Novo Agendamento</h5>
+          <h5 class="modal-title">Solicitar Agendamento</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -19,7 +19,7 @@
               </option>
             </select>
           </ng-template>
-          <ng-template [ngIf]="animals">
+          <ng-template [ngIf]="animals.length > 0">
             <label for="animal" class="form-label">Selecione um animal</label>
             <select id="animal" class="form-select mb-3" aria-label="Default select example" name="animal" [(ngModel)]="animalSelected">
               <option *ngFor="let animal of animals" value="{{animal.id}}">
@@ -32,12 +32,12 @@
             <div class="form-check" *ngFor="let service of services; index as i">
               <input class="form-check-input" name="service{{service.id}}" type="checkbox" [value]="service.id" [(ngModel)]="servicesSelected[i]" (ngModelChange)="calculateTotalValue()">
               <label class="form-check-label">
-                {{service.description +" - R$"+ service.value}}
+                {{service.description +" - R$"+ (service.value | number: '1.2-2')}}
               </label>
             </div>
           </ng-template>
           <ng-template [ngIf]="totalValue">
-            <div class="mt-4 fw-bold">Valor total: {{totalValue}}</div>
+            <div class="mt-4 fw-bold">Valor total: {{totalValue | number:'1.2-2'}}</div>
           </ng-template>
         </div>
         <div class="modal-footer">

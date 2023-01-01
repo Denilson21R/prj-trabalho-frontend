@@ -25,7 +25,6 @@ export class CadastroComponent implements OnInit {
     if(form.valid){
       this.userWeb.signUpUser(form.value).subscribe(res => {
         this.router.navigate(['login'])
-        //TODO: campo repita a senha no formulario de cadastro
       })
     }else{
       this.toast.error('Ocorreu um erro durante o cadastro!')
